@@ -1,0 +1,133 @@
+@media only screen and (max-width : 500px){
+	/* MASTER MOBILE STYLES */
+	section{
+	    margin-bottom: 3em;
+	}
+	
+	/* NAVBAR MOBILE STYLES */
+	.i-button{
+	    font-size: 25px;
+	}
+	
+	#navBar-logo{
+	    max-height: 20px;
+	    margin-bottom: 3px;
+	    margin-right: 2px;
+	}
+	
+	#navBar-title{
+	    font-size: 20px;
+	}
+	
+	#navBar-langBox{
+	    right: 30%;
+	    padding: 0px .5em;
+	}
+	
+	#navBar-langBox span{
+	    font-size: 12px;
+	}
+	
+	
+	/* WELCOME MOBILE STYLES */
+	
+	#welcome-section{
+	    min-height: unset;
+	
+	}
+	
+	#welcome-title{
+	    top: 20%;
+	    min-width: unset;
+	    width: 90%;
+	}
+	
+	#welcome-subtitle-container{
+	    padding-left: 4.5%;
+	    top: 50%;
+	}
+	
+	#welcome-subtitle{
+	    font-size: 17px;
+	}
+	
+	#welcome-image{
+	    max-width: unset;
+	    max-height: 50%;
+	}
+	
+	/* MENU MOBILE STYLES */
+	.menu-title{
+	    font-size: 45px;
+	}
+	
+	/* OWNER/ABOUT MOBILE STYLES */
+	#owner-image{
+	    min-height: 450px;
+	}
+	
+	#owner-story-container{
+	    min-height: 450px;
+	    padding: .5em 0em;
+	}
+	
+	#owner-story-title{
+	    font-size: 32px;
+	}
+	
+	/* CONTACT MOBILE STYlES */
+	
+	#contact-form-container{
+	    height: 50vh;
+	    min-height: 500px;
+	}
+	
+	#contact-form{
+	    width: 80%;
+	}
+	
+	#contact-form-label{
+	    font-size: 15px;
+	}
+	
+	#contact-form-input{
+	    font-size: 17px;
+	}
+	
+	#contact-message-container{
+	    min-height: 500px;
+	    height: 50vh;
+	}
+	
+	#contact-message-title{
+	    font-size: 35px;
+	    padding: 0;
+	}
+	
+	#contact-message{
+	    font-size: 15px;
+	}
+	
+	#contact-btn-container{
+	    width: 100%;
+	}
+	
+	.contact-icon{
+	    font-size: 25px;
+	}
+	
+	.contact-icon-text{
+	    font-size: 13px;
+	}
+	
+	/* Footer Mobile Styles */
+	
+	.footer-text{
+	    font-size: 11px;
+	}
+	
+	.footer-title{
+	    font-size: 11px;
+	}
+
+}

@@ -1,0 +1,134 @@
+@import url('https://fonts.googleapis.com/css2?family=Akshar:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@100;200;300;400;500;600;700&family=PT+Serif:wght@400;700&family=Yrsa:wght@300;400;500;600;700&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; 
+}
+
+:root{
+    /* colors */
+    --plum: #725B52;
+    --brown: #AF8947;
+    --darkBrown: #3E312C;
+    --green: #688E26;
+    --darkGreen: #516F1D;
+    --darkGreenOpac: #516F1D20;
+    --blue: #A8C1C7;
+    --darkBlue: #2B6978;
+    --yellow: #EABD20;
+    --darkYellow: #C89D06;
+    --red: #CE5C5C;
+    --darkRed: #AC1313;
+    --black: #131515;
+    --blackOpac: #13151525;
+    --cream: #E8DCC9;
+    --creamOpac: #E8DCC960;
+    --white: #F0EEEB;
+    --whiteOpac: #F0EEEB;
+    --grey: #FCF7F8;
+    --shadowBlack: #13151540;
+
+
+    /* shadows */
+    --shadowDrop1: drop-shadow(0px 1px .55px #00000090);
+
+    --shadowText1: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    --shadowText2: -0.5px 0.55px 1px rgba(0, 0, 0, 0.38);
+
+    --shadowInset1: inset 0px -2px 4px rgba(0, 0, 0, 0.25);
+    --shadowInset2: inset 0px 3px 4px rgba(0, 0, 0, 0.25);
+    --shadowInsetRow: inset 0px 0px 7px -1px #725B52;
+
+    /* fonts */
+    --title-font: 'Helvetica', 'Arial', sans-serif;  
+    --headline-font: 'Akshar', sans-serif;  
+    --mono-font: 'IBM Plex Mono', monospace;
+    --text-font1: 'Yrsa', serif;
+    --text-font2: 'PT Serif', serif;
+
+}
+
+html{
+    scroll-behavior: smooth;
+}
+
+body{
+     height: 100vh;
+     background-color: var(--white);
+}
+
+section{
+    position: relative;
+    width: 100vw;
+    margin-bottom: 5em;
+    overflow: hidden;
+}
+
+
+/* FONT STYLES */
+li{
+    list-style: none;
+    text-align: center;
+}
+
+.title-text{
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: calc(1vw + 1vh + 15vmin);
+    line-height: 160px;
+    display: flex;
+    align-items: center;
+    letter-spacing: -0.005em;
+    color: #725B52;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.headline-font{
+    font-family: var(--headline-font);
+    font-size: 30px;
+    font-weight: 300;
+    letter-spacing: 0.185em;
+}
+
+.subTitle-font{
+    font-family: var(--text-font1);
+    font-size: calc(1vw + 1vh + .5vmin);
+    font-weight: 200;
+    letter-spacing: 0.345em;
+}
+
+.text-font{
+    font-family: var(--text-font1);
+    font-size: 16px;
+    font-weight: 400;
+    letter-spacing: 0.005em;
+}
+.text-font2{
+    font-family: var(--text-font2);
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 0.005em;
+}
+
+.mono-font{
+    font-family: var(--mono-font);
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: 0.005em;
+}
+
+.menu-font{
+    font-family: var(--text-font1);
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: 0.095em;
+}
+
+.price-font{
+    font-family: var(--mono-font);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.095em;
+}
