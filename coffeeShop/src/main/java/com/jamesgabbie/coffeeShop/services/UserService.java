@@ -16,7 +16,7 @@ public class UserService {
 	private UserRepository uRepo;
 	
 	// Find user by UserName
-    public User findByUsername(String email) {
+    public User findByEmail(String email) {
         return uRepo.findByEmail(email);
     }
     
@@ -46,11 +46,15 @@ public class UserService {
  		}
  	}
  	
- 	//Create User
- 	public User registerUser(User user) {
-	    String hashedPw = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt());
-	    user.setPassword(hashedPw);
-	    return uRepo.save(user);
+ 	// Create User
+ 	public User createUser(User user) {
+ 		return uRepo.save(user);
+ 	}
+ 	
+ 	//Hash Password
+ 	public String hashPass(String pw) {
+	    String hashedPw = BCrypt.hashpw(pw, BCrypt.gensalt());	    
+	    return hashedPw;
 	}
  	
  	// Authenticate USER

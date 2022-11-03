@@ -12,11 +12,7 @@ public class NavController {
 	}
 	
 	
-//ADMIN REQUESTS
-	@GetMapping("/admin")
-	public String adminView(){
-		return "admin";
-	}
+
 	
 
 }

@@ -2,11 +2,10 @@
 JAVA | SPRING | THYMELEAF : Website and Backend Management System for Amsterdam Coffee Shop
 <br>
 Commit Note: 
-	- Front End ready for content to be templated into HTML
-	- BackEnd Model Routing is GO
-	- MySQL Schema is GO
-	- No Javascript functionality yet
-	- Stopped at creating controller methods for admin
+	- BackEnd Repositories and Services are a GO for Admin Login and Registration
+	- Default Content is set on registration and container 1 of each menu category
+
 <br>
 To Do:
+	- Add Admin dash form requets and update user and content
 	- See Admin Controller for To Do List

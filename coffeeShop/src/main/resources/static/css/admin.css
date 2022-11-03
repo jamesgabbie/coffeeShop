@@ -2,7 +2,75 @@
     background-color: white;;
     color: var(--darkBrown);
 }
+/* ################################# */
+/* ################################# */
+/* LOGIN/REGISTRATION STYLES */
+/* ################################# */
+/* ################################# */
+#login-container{
+	height: 100vh;
+	width: 100vw;
+	display:flex;
+	flex-direction: column;
+	align-items: center;
+	align-content: center;
+	justify-content: center;
+}
 
+.admin-title{
+	max-width: 30vw;
+}
+
+.form-container{
+	width: 30vw;
+	height: 50vh;
+	min-width: 350px;
+	border: none;
+	box-shadow: var(--shadowInsetRow);
+	display:flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	padding: 1em;
+}
+
+.input-row{
+	display:flex;
+	flex-direction: column;
+	justify-content: center;
+	width: 100%;
+	padding: .5em;
+}
+
+.form-container input{
+	padding: 5px;
+	font-size: 20px;
+	color: var(--darkBrown);
+	background-clip: white;
+	border-radius: 10px;
+	border: none;
+	box-shadow: var(--shadowInset1);
+}
+
+.admin-form-button{
+	background-color: var(--cream);
+	border: .5px solid var(--darkBrown);
+	padding: 5px;
+	border-radius: 2px;
+	filter: var(--shadowDrop1);
+	font-family: var(--headline-font);
+	font-size: 16px;
+	font-weight: 500;
+	color: var(--darkBrown);
+	width: 120px;
+	align-self: center;
+}
+
+/* ################################# */
+/* ################################# */
+/* DASH STYLES */
+/* ################################# */
+/* ################################# */
 #master-dash-container{
 	min-height: 100vh;
 	width: 100vw;
@@ -20,6 +88,9 @@
 	flex-wrap: wrap;
 	margin-bottom: 2em;
 }
+
+
+
 
 /* DASH HEADER/NAV MENU STYLES */
 
