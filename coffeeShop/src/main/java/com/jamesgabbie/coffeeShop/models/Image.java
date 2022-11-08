@@ -22,14 +22,14 @@ public class Image {
 	@Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
-	
+	private String placement;
 	private String fileName;
 	private byte[] imgData;
 	private Long imgSize;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "content_id")
-    private Content forContent;
+    @JoinColumn(name = "user_id")
+    private User userImages;
 	
     @Column(updatable=false)
     @DateTimeFormat(pattern="yyyy-MM-dd")
@@ -41,7 +41,7 @@ public class Image {
 		
 	}
 
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -49,6 +49,16 @@ public class Image {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+
+	public String getPlacement() {
+		return placement;
+	}
+
+
+	public void setPlacement(String placement) {
+		this.placement = placement;
 	}
 
 
@@ -82,13 +92,13 @@ public class Image {
 	}
 
 
-	public Content getForContent() {
-		return forContent;
+	public User getUserImages() {
+		return userImages;
 	}
 
 
-	public void setForContent(Content forContent) {
-		this.forContent = forContent;
+	public void setUserImages(User userImages) {
+		this.userImages = userImages;
 	}
 
 
@@ -112,12 +122,12 @@ public class Image {
 	}
 
 
-	public Image(String fileName, byte[] imgData, Long imgSize, Content forContent) {
-		super();
+	public Image(String placement, String fileName, byte[] imgData, Long imgSize, User userImages) {
+		this.placement = placement;
 		this.fileName = fileName;
 		this.imgData = imgData;
 		this.imgSize = imgSize;
-		this.forContent = forContent;
+		this.userImages = userImages;
 	}
 
 

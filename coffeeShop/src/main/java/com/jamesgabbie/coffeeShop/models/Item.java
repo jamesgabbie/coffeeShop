@@ -16,7 +16,6 @@ import javax.persistence.Table;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import com.sun.istack.NotNull;
 
 @Entity
 @Table(name="items")
@@ -24,17 +23,15 @@ public class Item {
 	@Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
-	
+	private String type;
 	private String name;
-	private String category;	
-	private String subCategory;
-	private String price;
-	@Column(nullable = true)
+	private String category;
+	@Column(nullable=true)
 	private String detail;
+	private String price;
 	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="content_id")
-    private Content forContent;
-	
+    @JoinColumn(name = "user_id")
+    private User owner;
     @Column(updatable=false)
     @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date createdAt;
@@ -44,8 +41,8 @@ public class Item {
     public Item() {
     	
     }
-    
-	
+
+
 	public Long getId() {
 		return id;
 	}
@@ -53,6 +50,16 @@ public class Item {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+
+	public String getType() {
+		return type;
+	}
+
+
+	public void setType(String type) {
+		this.type = type;
 	}
 
 
@@ -76,13 +83,13 @@ public class Item {
 	}
 
 
-	public String getSubCategory() {
-		return subCategory;
+	public String getDetail() {
+		return detail;
 	}
 
 
-	public void setSubCategory(String subCategory) {
-		this.subCategory = subCategory;
+	public void setDetail(String detail) {
+		this.detail = detail;
 	}
 
 
@@ -96,23 +103,13 @@ public class Item {
 	}
 
 
-	public String getDetail() {
-		return detail;
+	public User getOwner() {
+		return owner;
 	}
 
 
-	public void setDetail(String detail) {
-		this.detail = detail;
-	}
-
-
-	public Content getForContent() {
-		return forContent;
-	}
-
-
-	public void setForContent(Content forContent) {
-		this.forContent = forContent;
+	public void setOwner(User owner) {
+		this.owner = owner;
 	}
 
 
@@ -136,13 +133,13 @@ public class Item {
 	}
 
 
-	public Item(String name, String category, String subCategory, String price, String detail, Content forContent) {
+	public Item(String type, String name, String category, String detail, String price, User owner) {
+		this.type = type;
 		this.name = name;
 		this.category = category;
-		this.subCategory = subCategory;
-		this.price = price;
 		this.detail = detail;
-		this.forContent = forContent;
+		this.price = price;
+		this.owner = owner;
 	}
 
 

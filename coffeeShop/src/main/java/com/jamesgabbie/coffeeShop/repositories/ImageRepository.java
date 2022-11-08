@@ -11,5 +11,5 @@ import com.jamesgabbie.coffeeShop.models.Image;
 @Repository
 public interface ImageRepository extends CrudRepository<Image, Long>{
 	List<Image> findAll();
-	List<Image> findAllByForContent(Content content);
+	Image findImageByPlacement(String placement);
 }

@@ -10,7 +10,7 @@ public class NavController {
 	public String homeView() {
 		return "index";
 	}
-	
+
 	
 
 	

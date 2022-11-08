@@ -1,161 +1,161 @@
 package com.jamesgabbie.coffeeShop.models;
 
-import java.util.Date;
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
-import javax.persistence.Table;
-import javax.validation.constraints.Size;
+import org.springframework.stereotype.Component;
 
-import org.springframework.format.annotation.DateTimeFormat;
 
-@Entity
-@Table(name="contents")
+@Component
 public class Content {
-	@Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private Long id;
-	
-	@OneToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="user_id")
-    private User owner;
-	private String welcomeMessage;
-	private String ownerMessage;
-	private String contactMessage;
-	
-	@OneToMany(mappedBy="forContent", fetch = FetchType.LAZY)
-    private List<Item> items;
-	
-	@OneToMany(mappedBy="forContent", fetch = FetchType.LAZY)
-    private List<Image> images;
-	
-    @Column(updatable=false)
-    @DateTimeFormat(pattern="yyyy-MM-dd")
-    private Date createdAt;
-    @DateTimeFormat(pattern="yyyy-MM-dd")
-    private Date updatedAt;
-    
+	private User owner;
+	private String welcomeText;
+	private String ownerText;
+	private String contactText;
+	private List<Item> allItems;
+	private List<Item> cafeItems;
+	private List<Item> kitchenItems;
+	private List<Image> allImages;
+	private Image titleImage;
+	private Image welcomeImage;
+	private Image aboutImage;
+	private Image menuImage1;
+	private Image menuImage2;
+	private Image menuImage3;
+ 
 	public Content() {
 		
 	}
-
-	public Long getId() {
-		return id;
-	}
-
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
 
 	public User getOwner() {
 		return owner;
 	}
 
-
 	public void setOwner(User owner) {
 		this.owner = owner;
 	}
 
-
-	public String getWelcomeMessage() {
-		return welcomeMessage;
+	public String getWelcomeText() {
+		return welcomeText;
 	}
 
-
-	public void setWelcomeMessage(String welcomeMessage) {
-		this.welcomeMessage = welcomeMessage;
+	public void setWelcomeText(String welcomeText) {
+		this.welcomeText = welcomeText;
 	}
 
-
-	public String getOwnerMessage() {
-		return ownerMessage;
+	public String getOwnerText() {
+		return ownerText;
 	}
 
-
-	public void setOwnerMessage(String ownerMessage) {
-		this.ownerMessage = ownerMessage;
+	public void setOwnerText(String ownerText) {
+		this.ownerText = ownerText;
 	}
 
-
-	public String getContactMessage() {
-		return contactMessage;
+	public String getContactText() {
+		return contactText;
 	}
 
-
-	public void setContactMessage(String contactMessage) {
-		this.contactMessage = contactMessage;
+	public void setContactText(String contactText) {
+		this.contactText = contactText;
 	}
 
-
-	public List<Item> getItems() {
-		return items;
+	public List<Item> getAllItems() {
+		return allItems;
 	}
 
-
-	public void setItems(List<Item> items) {
-		this.items = items;
+	public void setAllItems(List<Item> allItems) {
+		this.allItems = allItems;
 	}
 
-
-	public List<Image> getImages() {
-		return images;
+	public List<Item> getCafeItems() {
+		return cafeItems;
 	}
 
-
-	public void setImages(List<Image> images) {
-		this.images = images;
+	public void setCafeItems(List<Item> cafeItems) {
+		this.cafeItems = cafeItems;
 	}
 
-
-	public Date getCreatedAt() {
-		return createdAt;
+	public List<Item> getKitchenItems() {
+		return kitchenItems;
 	}
 
-
-	public void setCreatedAt(Date createdAt) {
-		this.createdAt = createdAt;
+	public void setKitchenItems(List<Item> kitchenItems) {
+		this.kitchenItems = kitchenItems;
 	}
 
-
-	public Date getUpdatedAt() {
-		return updatedAt;
+	public List<Image> getAllImages() {
+		return allImages;
 	}
 
-
-	public void setUpdatedAt(Date updatedAt) {
-		this.updatedAt = updatedAt;
+	public void setAllImages(List<Image> allImages) {
+		this.allImages = allImages;
 	}
 
+	public Image getTitleImage() {
+		return titleImage;
+	}
 
-	public Content(User owner, String welcomeMessage, String ownerMessage, String contactMessage, List<Item> items,
-			List<Image> images) {
+	public void setTitleImage(Image titleImage) {
+		this.titleImage = titleImage;
+	}
+
+	public Image getWelcomeImage() {
+		return welcomeImage;
+	}
+
+	public void setWelcomeImage(Image welcomeImage) {
+		this.welcomeImage = welcomeImage;
+	}
+
+	public Image getAboutImage() {
+		return aboutImage;
+	}
+
+	public void setAboutImage(Image aboutImage) {
+		this.aboutImage = aboutImage;
+	}
+
+	public Image getMenuImage1() {
+		return menuImage1;
+	}
+
+	public void setMenuImage1(Image menuImage1) {
+		this.menuImage1 = menuImage1;
+	}
+
+	public Image getMenuImage2() {
+		return menuImage2;
+	}
+
+	public void setMenuImage2(Image menuImage2) {
+		this.menuImage2 = menuImage2;
+	}
+
+	public Image getMenuImage3() {
+		return menuImage3;
+	}
+
+	public void setMenuImage3(Image menuImage3) {
+		this.menuImage3 = menuImage3;
+	}
+
+	public Content(User owner, String welcomeText, String ownerText, String contactText, List<Item> allItems,
+			List<Item> cafeItems, List<Item> kitchenItems, List<Image> allImages, Image titleImage, Image welcomeImage,
+			Image aboutImage, Image menuImage1, Image menuImage2, Image menuImage3) {
 		this.owner = owner;
-		this.welcomeMessage = welcomeMessage;
-		this.ownerMessage = ownerMessage;
-		this.contactMessage = contactMessage;
-		this.items = items;
-		this.images = images;
+		this.welcomeText = welcomeText;
+		this.ownerText = ownerText;
+		this.contactText = contactText;
+		this.allItems = allItems;
+		this.cafeItems = cafeItems;
+		this.kitchenItems = kitchenItems;
+		this.allImages = allImages;
+		this.titleImage = titleImage;
+		this.welcomeImage = welcomeImage;
+		this.aboutImage = aboutImage;
+		this.menuImage1 = menuImage1;
+		this.menuImage2 = menuImage2;
+		this.menuImage3 = menuImage3;
 	}
 
 
-	@PrePersist
-    protected void onCreate(){
-        this.createdAt = new Date();
-    }
-    @PreUpdate
-    protected void onUpdate(){
-        this.updatedAt = new Date();
-    }
 }

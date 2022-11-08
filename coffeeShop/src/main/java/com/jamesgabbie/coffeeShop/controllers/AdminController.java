@@ -1,21 +1,30 @@
 package com.jamesgabbie.coffeeShop.controllers;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.jamesgabbie.coffeeShop.models.Image;
+import com.jamesgabbie.coffeeShop.models.Item;
 import com.jamesgabbie.coffeeShop.models.User;
-import com.jamesgabbie.coffeeShop.services.ContentService;
+import com.jamesgabbie.coffeeShop.services.ImageService;
+import com.jamesgabbie.coffeeShop.services.ItemService;
 import com.jamesgabbie.coffeeShop.services.UserService;
 
 @Controller
@@ -24,15 +33,21 @@ public class AdminController {
 	@Autowired
 	private UserService uService;
 	@Autowired
-	private ContentService cService;
+	private ItemService itemService;
+	@Autowired
+	private ImageService imgService;
 
 //	GET REQUESTS
 	//Dash View
 	@GetMapping("/dash")
 	public String adminView(Model viewModel, HttpSession session){
 		if(session.getAttribute("user__id") == null) {
-			return "redirect:/login";
+			return "redirect:/admin/login";
 		} else {
+			User user = uService.findUser((long)session.getAttribute("user__id"));
+			viewModel.addAttribute("user", user);
+			
+			
 			return "dash";
 		}
 	}
@@ -49,7 +64,7 @@ public class AdminController {
 	@GetMapping("/register")
 	public String registerView(User user, Model viewModel, HttpSession session) {
 		if(session.getAttribute("user__id") != null) {
-			return "redirect:/admin";
+			return "redirect:/admin/dash";
 		} else {
 			viewModel.addAttribute("user", user);
 			return "register";
@@ -60,7 +75,7 @@ public class AdminController {
 	
 	
 	
-//  POST REQUESTS
+//  ACTION/POST REQUESTS
 	//	REGISTER	
 	@PostMapping("/register")
 	public String register(@RequestParam("name") String name, @RequestParam("email") String email,
@@ -95,7 +110,9 @@ public class AdminController {
 			newUser.setName(name);
 			newUser.setEmail(email);
 			newUser.setPassword(uService.hashPass(password));
-			newUser.setContent(cService.setDefaultContent(newUser));
+			newUser.setWelcomeText(uService.getDefaultText("welcome"));
+			newUser.setAboutText(uService.getDefaultText("about"));
+			newUser.setContactText(uService.getDefaultText("contact"));
 			uService.createUser(newUser);
 			session.setAttribute("user__id", newUser.getId());
 			return "redirect:/admin/login";
@@ -132,11 +149,97 @@ public class AdminController {
 		}
 	}
 	
+	// Update Content 	
+	@PostMapping("/updateContent/{type}")
+	public String addItem(@PathVariable("type") String type, @RequestParam("text") String text, HttpSession session){
+
+		if(session.getAttribute("user__id") == null) {
+			return "redirect:/admin/login";
+		}
+		
+		
+		User owner = uService.findUser((long)session.getAttribute("user__id"));
+		if(type.equals("welcome")) {
+			owner.setWelcomeText(text);
+		} else if(type.equals("about")) {
+			owner.setAboutText(text);
+		} else if(type.equals("contact")) {
+			owner.setContactText(text);
+		}
+		
+		uService.updateUser(owner.getId());
+		return "redirect:/admin/dash";
+	}
+	
+//	Load Default Content
+	@GetMapping("/loadDefaultTextContent")
+	public String loadDefTextCont(HttpSession session) {
+		Long uId = (Long)session.getAttribute("user__id");
+		User user = uService.findUser(uId);
+		user.setWelcomeText(uService.getDefaultText("welcome"));
+		user.setAboutText(uService.getDefaultText("about"));
+		user.setContactText(uService.getDefaultText("contact"));
+		uService.updateUser(uId);
+		
+		return "redirect:/admin/dash";
+	}
+	
+	// Add Content Item 	
+	@PostMapping("/addItem")
+	public String addItem(@RequestParam("type")String type, @RequestParam("name")String name,
+							@RequestParam("category")String category, @RequestParam("detail")String detail,
+							@RequestParam("price")String price, HttpSession session){
+
+		if(session.getAttribute("user__id") == null) {
+			return "redirect:/admin/login";
+		}
+		
+		User owner = uService.findUser((long)session.getAttribute("user__id"));
+		Item newItem = new Item();
+		newItem.setType(type);
+		newItem.setName(name);
+		newItem.setCategory(category);
+		newItem.setPrice(price);
+		if(detail.isBlank() != true) {
+			newItem.setDetail(detail);
+		}
+		newItem.setOwner(owner);
+		itemService.saveItem(newItem);
+		
+		return "redirect:/admin/dash";
+	}
+	
+	
+	
+	
+	
+//	Add Content Image
+	@PostMapping("/updateContentImage/{type}")
+	public String uploadUserImage(@PathVariable("type") String type, @RequestParam("file") MultipartFile file, HttpSession session, RedirectAttributes redirectAttr) throws IOException {
+		if(session.getAttribute("user__id")== null) {
+			return "redirect:/admin/login";
+		}
+		Long userId = (Long)session.getAttribute("user__id");
+		User loggedUser = this.uService.findUser(userId);
+		
+		
+		imgService.uploadImage(file, loggedUser, type);
+		
+		return "redirect:/admin/dash";
+	}
+	
+	
+	//IMG SERVLET RESPONSE/RETRIEVAL
+	@RequestMapping(value="getIMG/{placement}")
+	public @ResponseBody void getIMG(@PathVariable("placement")String placement, HttpServletRequest request, HttpServletResponse response) throws IOException {
+			Image image = imgService.findImageByPlacement(placement);        
+		    response.setContentType("image/jpeg, image/jpg, image/png, image/gif, img/webp");
+		    response.getOutputStream().write(image.getImgData());
+		    response.getOutputStream().close();
+	}
 	
 	
 //		- update password
-//		- save images
-//		- update/save content
 //		- update/save item
 //		- add item	
 	

@@ -1,12 +1,16 @@
 package com.jamesgabbie.coffeeShop.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.jamesgabbie.coffeeShop.models.Item;
 import com.jamesgabbie.coffeeShop.models.User;
 import com.jamesgabbie.coffeeShop.repositories.UserRepository;
 
@@ -19,23 +23,6 @@ public class UserService {
     public User findByEmail(String email) {
         return uRepo.findByEmail(email);
     }
-    
- // Check For Master User
-    public String checkForMasterUser() {
-        List<User> allUsers = uRepo.findAll();
-        String i = new String();
-        if(allUsers.size() == 1) {
-        	i = "true";
-        }
-        if(allUsers.size() == 0) {
-        	i = "false";
-        }
-        if(allUsers.size() >= 2) {
-        	i = "false";
-        }
-        return i;
-    }
-	
     // Find User
  	public User findUser(Long id) {
  		Optional<User> optionalUser = uRepo.findById(id);
@@ -70,8 +57,32 @@ public class UserService {
             }
         }
     }
+    
+    //Update User
+    public User updateUser(Long id) {
+    	User user;
+    	Optional<User> optionalUser = uRepo.findById(id);
+ 		if(optionalUser.isPresent()) {
+ 			user =  optionalUser.get();
+ 		} else {
+ 			return null;
+ 		}
+    	return uRepo.save(user);
+    }
 	
-	
+// Set Default Content
+	//	TEXT CONTENT
+	public String getDefaultText(String type) {
+		String text = "";
+		if(type.equals("welcome") == true ) {
+			text = "welcome: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Amet, cras sed sapien pretium elementum. Quam nisl vulputate mauris nam ac ullamcorper arcu. Et sed egestas risus congue. Et enim malesuada et. Ipsum dolor sit amet, consectetur adipisc.";
+		} else if(type.equals("about") == true) {
+			text = "about: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Amet, cras sed sapien pretium elementum. Quam nisl vulputate mauris nam ac ullamcorper arcu. Et sed egestas risus congue. Et enim malesuada et. Ipsum dolor sit amet, consectetur adipisc.";
+		} else if(type.equals("contact") == true) {
+			text = "contact: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Amet, cras sed sapien pretium elementum. Quam nisl vulputate mauris nam ac ullamcorper arcu. Et sed egestas risus congue. Et enim malesuada et. Ipsum dolor sit amet, consectetur adipisc.";
+		}
+		return text;
+	}
 	
 
 

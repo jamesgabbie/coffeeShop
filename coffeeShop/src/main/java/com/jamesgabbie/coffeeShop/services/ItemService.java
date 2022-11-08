@@ -13,43 +13,27 @@ import com.jamesgabbie.coffeeShop.repositories.ItemRepository;
 public class ItemService {
 	@Autowired
 	private ItemRepository itemRepo;
-	
-	// Find All Items
-	public List<Item> findAllItems(){
+// Save Item
+	public Item saveItem(Item item){
+		return itemRepo.save(item);
+	}
+// Get All Items
+	public List<Item> getAllItems(){
 		return itemRepo.findAll();
 	}
+// FIND Item
+	public Item findItem(Long id) {
+		Optional <Item> optionalItem = itemRepo.findById(id);
+		if(optionalItem.isPresent()) {
+			return optionalItem.get();
+		} else {
+			return null;
+		}
+	}
+// Delete Item
+	public void deleteItem(Long id) {
+		itemRepo.deleteById(id);
+	}
 	
-	 // Find Item By ID
-  	public Item findItemt(Long id) {
-  		Optional<Item> optionalItem= itemRepo.findById(id);
-  		if(optionalItem.isPresent()) {
-  			return optionalItem.get();
-  		} else {
-  			return null;
-  		}
-  	}
-	
-  	// Add Item
-  	public Item addItem(Item item) {
-  		return this.itemRepo.save(item);
-  	}
-  	// Update Item
-  	public Item updateItem(Item item) {
-  		return this.itemRepo.save(item);
-  	}
-	
-	
-  	// Delete All items
-  	public void deleteAllItems (List<Item> allItems) {
-  		for(Item p : allItems) {
-  			itemRepo.deleteById(p.getId());
-  		}
-  	}
-  	
-  	// Delete Item By Id
-  	public void deleteItem(Long id) {
-  		itemRepo.deleteById(id);
-  	}
-	
-	
+
 }
