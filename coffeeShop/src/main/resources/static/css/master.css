@@ -65,11 +65,14 @@ body{
      background-color: var(--white);
 }
 
+
+
 section{
     position: relative;
     width: 100vw;
     margin-bottom: 5em;
     overflow: hidden;
+    opacity: 0;
 }
 
 
@@ -139,3 +142,51 @@ li{
     font-weight: 500;
     letter-spacing: 0.095em;
 }
+
+
+
+/* ANIMATIONS && LocoScroll Classes (.ls-*) */
+
+.ls-hide{
+	opacity: 0;
+	transition: opacity 1s ease;
+}
+
+.ls-show{
+	opacity: 1;
+	transition: opacity 1s ease;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

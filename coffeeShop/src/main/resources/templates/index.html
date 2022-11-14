@@ -13,6 +13,8 @@
 	<link href="/css/master.css" type="text/css" rel="stylesheet">
     <link href="/css/sections.css" type="text/css" rel="stylesheet">
     <link href="/css/mobile.css" type="text/css" rel="stylesheet">
+    <link href="/css/loco-scroll.css" type="text/css" rel="stylesheet">
+    
 
 </head>
 <body>
@@ -53,23 +55,26 @@
 <!-- ####################################################### -->
 <!-- ####################################################### -->
 <!-- MASTER CONTENT CONTAINER -->
-<div id="mstr-view-container">
-
+<div id="mstr-view-container" data-scroll-container>
     <!-- WELCOME SECTION -->
-    <section id="welcome-section">
-        <img id="welcome-title" th:src="'getContentImg/'+${content.logoImage.id}" alt="welcomeTitle-img">
-        <div class="showcase-row" id="welcome-subtitle-container">
+    <section id="welcome-section" data-scroll-section>
+        <img id="welcome-title" th:src="'getContentImg/'+${content.logoImage.id}" alt="welcomeTitle-img" fetchpriority="high">
+        <div class="showcase-row" id="welcome-subtitle-container" >
             <span class="subTitle-font" id="welcome-subtitle">drink + eat + amsterdam</span>
         </div>
-        <img id="welcome-image" th:src="'getContentImg/'+${content.bookendImage.id}" alt="">
+        <img data-scroll data-scroll-speed="-3" data-scroll-position="left" data-scroll-direction="horizontal" id="welcome-image" th:src="'getContentImg/'+${content.bookendImage.id}" alt="welcome-img" fetchpriority="high">
     </section>
 
-
     <!-- LOCATION SECTION -->
-    <section id="location-section">
-        <img id="location-img" th:src="'getContentImg/'+${content.welcomeImage.id}" alt="building-img">
-        <div id="location-message-container">
-            <div id="location-text-box">
+    <section id="location-section" data-scroll-section>
+        <img data-scroll class="ls-hide" data-scroll-class="ls-show" data-scroll-offset="10%" 
+        	data-scroll-direction="horizontal" data-scroll-speed="1" data-scroll-position="left"
+        	id="location-img" th:src="'getContentImg/'+${content.welcomeImage.id}" alt="building-img" fetchpriority="high"
+       	 >
+        <div id="location-message-container" data-scroll class="ls-hide" data-scroll-class="ls-show" data-scroll-offset="10%"
+        	data-scroll-direction="horizontal" data-scroll-speed=".75" data-scroll-position="left"
+        >
+            <div id="location-text-box" style="background-color: var(--white)">
                 <span class="text-font" id="location-text" th:text="${content.welcomeText}"></span>
             </div>
             <div id="location-address-box">
@@ -84,15 +89,14 @@
             </div>
         </div>
     </section>
-    
-    
+        
     <!--  CAFE MENU SECTION -->
-    <section class="menu-section">
+    <section class="menu-section" data-scroll-section>
         <div class="menu-title">
             Cafe Menu
         </div>
         <!-- COFFEE MENU -->
-        <div class="menu-type-container">
+        <div class="menu-type-container ls-hide" data-scroll data-scroll-class="ls-show" data-scroll-offset="38%">
             <span class="headline-font" style="color: var(--brown)">Coffee</span>
             <svg th:fragment="coffeeDrip" class="drip-icon" id="coffee-drip" width="50" height="60" viewBox="0 0 50 60" fill="none" xmlns="http://www.w3.org/2000/svg">
                 
@@ -145,7 +149,7 @@
             </div>
         </div>
         <!-- TEA MENU -->
-        <div class="menu-type-container">
+        <div class="menu-type-container ls-hide" data-scroll data-scroll-class="ls-show" data-scroll-offset="38%">
             <span class="headline-font" style="color: var(--darkGreen)">Tea</span>
             <svg th:fragment="teaDrip" class="drip-icon" id="tea-drip" width="50" height="60" viewBox="0 0 50 60" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M50 35.3846C50 48.9793 38.8071 60 25 60C11.1929 60 0 48.9793 0 35.3846C0 21.7899 26.7857 0 25 0C23.2143 0 50 21.7899 50 35.3846Z" fill="#688E26"/>
@@ -180,7 +184,7 @@
             </div>
         </div>
         <!-- COOLERS MENU -->
-        <div class="menu-type-container">
+        <div class="menu-type-container ls-hide" data-scroll data-scroll-class="ls-show" data-scroll-offset="38%">
             <span class="headline-font" style="color: var(--darkBlue)">Coolers</span>
             <svg th:fragment="coolerDrip" class="drip-icon" id="cooler-drip" width="50" height="60" viewBox="0 0 50 60" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g filter="url(#filter0_i_36_737)">
@@ -228,24 +232,20 @@
         </div>
     </section>
 
-
-
     <!-- MENU PICTURE SECTION -->
-    <section id="menu-image-section">
-        <img class="menu-image" th:src="'getContentImg/'+${content.menuImage1.id}" alt="menuImage1">
-        <img class="menu-image" th:src="'getContentImg/'+${content.menuImage2.id}" alt="menuImage2">
-        <img class="menu-image" th:src="'getContentImg/'+${content.menuImage3.id}" alt="menuImage3">
+    <section id="menu-image-section" data-scroll-section>
+        <img class="menu-image" data-scroll data-scroll-speed="2" th:src="'getContentImg/'+${content.menuImage1.id}" alt="menuImage1">
+        <img class="menu-image" data-scroll data-scroll-speed="-2" th:src="'getContentImg/'+${content.menuImage2.id}" alt="menuImage2">
+        <img class="menu-image" data-scroll data-scroll-speed="2" th:src="'getContentImg/'+${content.menuImage3.id}" alt="menuImage3">
     </section>
 
-
-
     <!-- KITCKEN MENU SECTION -->
-    <section class="menu-section">
+    <section class="menu-section" data-scroll-section>
         <div class="menu-title">
             Kitchen Menu
         </div>
         <!-- BREAKFAST MENU -->
-        <div class="menu-type-container">
+        <div class="menu-type-container ls-hide" data-scroll data-scroll-class="ls-show" data-scroll-offset="38%">
             <span class="headline-font" style="color: var(--darkYellow)">Breakfast</span>
             <svg th:fragment="eggDrip" class="drip-icon" id="egg-drip"  width="50" height="60" viewBox="0 0 50 60" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g filter="url(#filter0_i_36_740)">
@@ -297,7 +297,7 @@
             </div>
         </div>
         <!-- SWEETS MENU -->
-        <div class="menu-type-container">
+        <div class="menu-type-container ls-hide" data-scroll data-scroll-class="ls-show" data-scroll-offset="38%">
             <span class="headline-font" style="color: var(--darkRed)">Sweets</span>
             <svg th:fragment="sweetDrip" class="drip-icon" id="sweet-drip"  width="50" height="60" viewBox="0 0 50 60" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g filter="url(#filter0_i_36_739)">
@@ -349,7 +349,7 @@
             </div>
         </div>
         <!-- SHOP MENU -->
-        <div class="menu-type-container">
+        <div class="menu-type-container ls-hide" data-scroll data-scroll-class="ls-show" data-scroll-offset="38%">
             <span class="headline-font" style="color: var(--darkBrown)">SHOP</span>
             <svg th:fragment="shopDrip" class="drip-icon" id="shop-drip" width="50" height="60" viewBox="0 0 50 60" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g filter="url(#filter0_i_36_738)">
@@ -402,20 +402,18 @@
         </div>
     </section>
 
-
     <!-- OWNER SECTION -->
-    <section id="about-section">
-        <div id="owner-story-container">
+    <section id="about-section" data-scroll-section>
+        <div id="owner-story-container" class="ls-hide" data-scroll data-scroll-class="ls-show" data-scroll-offset="30%">
             <span id="owner-story-title">MEET YOUR HOSTS</span>
-            <q class="text-font" id="owner-story-text" th:text="${content.ownerText}"></q>
+            <q class="text-font" id="owner-story-text" th:text="${content.ownerText}" style="background-color: var(--white)"></q>
         </div>
-        <img id="owner-image" th:src="'getContentImg/'+${content.aboutImage.id}" alt="owners-img">
+        <img id="owner-image"class="ls-hide" data-scroll data-scroll-class="ls-show" data-scroll-offset="30%" th:src="'getContentImg/'+${content.aboutImage.id}" alt="owners-img">
     </section>
 
-
     <!-- CONTACT SECTION -->
-    <section id="contact-section">
-        <div id="contact-form-container">
+    <section id="contact-section" data-scroll-section>
+        <div id="contact-form-container" class="ls-hide" data-scroll data-scroll-class="ls-show" data-scroll-offset="30%">
             <form id="contact-form" action="">
                 <div class="contact-form-group">
                     <span class="contact-form-label">name:</span>
@@ -438,7 +436,7 @@
                 </div>
             </form>
         </div>
-        <div id="contact-message-container">
+        <div id="contact-message-container" class="ls-hide" data-scroll data-scroll-class="ls-show" data-scroll-offset="30%">
             <span id="contact-message-title">CONTACT US</span>
             <p id="contact-message" th:text="${content.contactText}"></p>
             <div id="contact-btn-container">
@@ -464,7 +462,7 @@
     </section>
 
     <!-- FOOTER SECTION -->
-    <section id="footer-section">
+    <section id="footer-section" data-scroll-section>
         <div class="footer-column">
            <span class="footer-title">De Koffie Schenkerij</span>
            <span class="footer-text">Oudekerksplein 27,</span>
@@ -477,12 +475,20 @@
         </div>
     </section>
 </div>
+
+<!--  TAG VARIABLES : Hidden -->
 <!-- Javascript -->
-    <!-- Bootstrap -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
-    <!-- JQuery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-    <!-- Local -->
-    <script src="/src/js/app.js"></script>
+<!-- Bootstrap -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+<!-- JQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<!-- Loco Scroll .min.js-->
+<script src="/js/locomotive-scroll.min.js"></script>
+<!-- Local -->
+<script src="/js/app.js">
+
+</script>
+
+
 </body>
 </html>
