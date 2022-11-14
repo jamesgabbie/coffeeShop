@@ -57,20 +57,20 @@
 
     <!-- WELCOME SECTION -->
     <section id="welcome-section">
-        <img id="welcome-title" src="/src/design/PNGs/welcome-title.png" alt="welcomeTitle-img">
+        <img id="welcome-title" th:src="'getContentImg/'+${content.logoImage.id}" alt="welcomeTitle-img">
         <div class="showcase-row" id="welcome-subtitle-container">
             <span class="subTitle-font" id="welcome-subtitle">drink + eat + amsterdam</span>
         </div>
-        <img id="welcome-image" src="/src/design/PNGs/welcome-image.png" alt="">
+        <img id="welcome-image" th:src="'getContentImg/'+${content.bookendImage.id}" alt="">
     </section>
 
 
     <!-- LOCATION SECTION -->
     <section id="location-section">
-        <img id="location-img" src="/src/design/Images/De-Koffieschenkerij-APRIL19-79-4.jpeg" alt="building-img">
+        <img id="location-img" th:src="'getContentImg/'+${content.welcomeImage.id}" alt="building-img">
         <div id="location-message-container">
             <div id="location-text-box">
-                <span class="text-font" id="location-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Amet, cras sed sapien pretium elementum. Quam nisl vulputate mauris nam ac ullamcorper arcu. Et sed egestas risus congue. Et enim malesuada et. Ipsum dolor sit amet, consectetur adipisc.</span>
+                <span class="text-font" id="location-text" th:text="${content.welcomeText}"></span>
             </div>
             <div id="location-address-box">
                 <i class="fa-solid fa-location-dot" id="pin-icon"></i>
@@ -137,45 +137,10 @@
                 </defs>
             </svg>
             <div class="menu-list">
-                <div class="menu-item">
-                    <span class="menu-font menu-item-title">espresso</span>
-                    <span class="price-font">2.7 | 3.5</span>
-                </div>
-                <div class="menu-item">
-                    <span class="menu-font menu-item-title">americano</span>
-                    <span class="price-font">2.8 | 3.6</span>
-                </div>
-                <div class="menu-item">
-                    <span class="menu-font menu-item-title">cappuccino</span>
-                    <span class="price-font">3.3 | 4.3</span>
-                </div>
-                <div class="menu-item">
-                    <span class="menu-font menu-item-title">latte</span>
-                    <span class="price-font">3.7</span>
-                </div>
-                <div class="menu-item">
-                    <span class="menu-font menu-item-title">flat white</span>
-                    <span class="price-font">3.8</span>
-                </div>
-                <div class="menu-item">
-                    <span class="menu-font menu-item-title">latte macchiato</span>
-                    <span class="price-font">3.7</span>
-                </div>
-                <div class="menu-item">
-                    <span class="menu-font menu-item-title">dirty chai</span>
-                    <span class="price-font">4.8</span>
-                </div>
-                <div class="menu-item">
-                    <span class="menu-font menu-item-title">moccha latte</span>
-                    <span class="price-font">3.8</span>
-                </div>
-                <div class="menu-item" style="flex-direction: row; margin: 10px">
-                    <span class="price-font">extra espresso shot:</span>
-                    <span class="price-font" style="margin-left: 8px;">+0.9</span>
-                </div>
-                <div class="menu-item" style="flex-direction: row; margin: 10px">
-                    <span class="price-font">oat milk substitute:</span>
-                    <span class="price-font" style="margin-left: 8px;">+0.5</span>
+                <div class="menu-item" th:each="i : ${content.allCoffeeItems}">
+                    <span class="menu-font menu-item-title" th:text="${i.name}"></span>
+                   	<span th:if="${i.detail != null}" class="price-font menu-item-spec" th:text="'{ '+ ${i.detail} + ' }'"></span>
+                    <span class="price-font" th:text="${i.price}">2.7 | 3.5</span>
                 </div>
             </div>
         </div>
@@ -207,23 +172,10 @@
                 </defs>
             </svg>
             <div class="menu-list">
-                <div class="menu-item">
-                    <span class="menu-font menu-item-title">house blend(s)</span>
-                    <span class="price-font menu-item-spec">{ mint | ginger-orange }</span>
-                    <span class="price-font">3.4</span>
-                </div>
-                <div class="menu-item">
-                    <span class="menu-font menu-item-title">*trinity loose leaf(s)</span>
-                    <span class="price-font menu-item-spec">{ ask for availability }</span>
-                    <span class="price-font">3.4</span>
-                </div>
-                <div class="menu-item">
-                    <span class="menu-font menu-item-title">chai latte</span>
-                    <span class="price-font">4.0</span>
-                </div>
-                <div class="menu-item">
-                    <span class="menu-font menu-item-title">matcha latte</span>
-                    <span class="price-font">4.0</span>
+                 <div class="menu-item" th:each="i : ${content.allTeaItems}">
+                    <span class="menu-font menu-item-title" th:text="${i.name}"></span>
+                   	<span th:if="${i.detail != null}" class="price-font menu-item-spec" th:text="'{ '+ ${i.detail} + ' }'"></span>
+                    <span class="price-font" th:text="${i.price}">2.7 | 3.5</span>
                 </div>
             </div>
         </div>
@@ -267,28 +219,10 @@
                 </defs>
             </svg>
             <div class="menu-list">
-                <div class="menu-item">
-                    <span class="menu-font menu-item-title">house soda(s)</span>
-                    <span class="price-font menu-item-spec">{ wild tea | berry | ginger | pear }</span>
-                    <span class="price-font">3.5</span>
-                </div>
-                <div class="menu-item">
-                    <span class="menu-font menu-item-title">orange juice</span>
-                    <span class="price-font">3.5</span>
-                </div>
-                <div class="menu-item">
-                    <span class="menu-font menu-item-title">apple juice</span>
-                    <span class="price-font">3.1</span>
-                </div>
-                <div class="menu-item">
-                    <span class="menu-font menu-item-title">bottled water</span>
-                    <span class="price-font menu-item-spec">{ sparkling | stll }</span>
-                    <span class="price-font">2.7</span>
-                </div>
-                <div class="menu-item">
-                    <span class="menu-font menu-item-title">low-alcohol beer</span>
-                    <span class="price-font menu-item-spec">{ .5% a.b.v. }</span>
-                    <span class="price-font">4.3</span>
+                <div class="menu-item" th:each="i : ${content.allCoolerItems}">
+                    <span class="menu-font menu-item-title" th:text="${i.name}"></span>
+                   	<span th:if="${i.detail != null}" class="price-font menu-item-spec" th:text="'{ '+ ${i.detail} + ' }'"></span>
+                    <span class="price-font" th:text="${i.price}">2.7 | 3.5</span>
                 </div>
             </div>
         </div>
@@ -298,9 +232,9 @@
 
     <!-- MENU PICTURE SECTION -->
     <section id="menu-image-section">
-        <img class="menu-image" src="/src/design/Images/De-Koffieschenkerij-APRIL19-55.jpeg" alt="menuImage1">
-        <img class="menu-image" src="/src/design/Images/De-Koffieschenkerij-APRIL19-86.jpeg" alt="menuImage2">
-        <img class="menu-image" src="/src/design/Images/De-Koffieschenkerij-APRIL19-71.jpeg" alt="menuImage3">
+        <img class="menu-image" th:src="'getContentImg/'+${content.menuImage1.id}" alt="menuImage1">
+        <img class="menu-image" th:src="'getContentImg/'+${content.menuImage2.id}" alt="menuImage2">
+        <img class="menu-image" th:src="'getContentImg/'+${content.menuImage3.id}" alt="menuImage3">
     </section>
 
 
@@ -355,14 +289,10 @@
                 </defs>
             </svg>
             <div class="menu-list">
-                <div class="menu-item">
-                    <span class="menu-font menu-item-title">croissant</span>
-                    <span class="price-font menu-item-spec">{ butter | jam }</span>
-                    <span class="price-font">2.8</span>
-                </div>
-                <div class="menu-item">
-                    <span class="menu-font menu-item-title">banana chocolate bread</span>
-                    <span class="price-font">3.8</span>
+                <div class="menu-item" th:each="i : ${content.allBreakfastItems}">
+                    <span class="menu-font menu-item-title" th:text="${i.name}"></span>
+                   	<span th:if="${i.detail != null}" class="price-font menu-item-spec" th:text="'{ '+ ${i.detail} + ' }'"></span>
+                    <span class="price-font" th:text="${i.price}">2.7 | 3.5</span>
                 </div>
             </div>
         </div>
@@ -411,35 +341,10 @@
                 </defs>
             </svg>
             <div class="menu-list">
-                <div class="menu-item">
-                    <span class="menu-font menu-item-title">pastel de nata</span>
-                    <span class="price-font">2.9</span>
-                </div>
-                <div class="menu-item">
-                    <span class="menu-font menu-item-title">apple pie</span>
-                    <span class="price-font">4.7</span>
-                </div>
-                <div class="menu-item">
-                    <span class="menu-font menu-item-title">cheese cake</span>
-                    <span class="price-font">5.0</span>
-                </div>
-                <div class="menu-item">
-                    <span class="menu-font menu-item-title">tartelette</span>
-                    <span class="price-font">4.0</span>
-                </div>
-                <div class="menu-item">
-                    <span class="menu-font menu-item-title">chocolate chip bundt cake</span>
-                    <span class="price-font menu-item-spec">{ vegan }</span>
-                    <span class="price-font">3.8</span>
-                </div>
-                <div class="menu-item">
-                    <span class="menu-font menu-item-title">almond cake</span>
-                    <span class="price-font menu-item-spec">{ gluton free }</span>
-                    <span class="price-font">3.8</span>
-                </div>
-                <div class="menu-item">
-                    <span class="menu-font menu-item-title">carrot cake</span>
-                    <span class="price-font">3.8</span>
+                <div class="menu-item" th:each="i : ${content.allSweetItems}">
+                    <span class="menu-font menu-item-title" th:text="${i.name}"></span>
+                   	<span th:if="${i.detail != null}" class="price-font menu-item-spec" th:text="'{ '+ ${i.detail} + ' }'"></span>
+                    <span class="price-font" th:text="${i.price}">2.7 | 3.5</span>
                 </div>
             </div>
         </div>
@@ -488,19 +393,10 @@
                 </defs>
             </svg>
             <div class="menu-list">
-                <div class="menu-item">
-                    <span class="menu-font menu-item-title">*KeepCup</span>
-                    <span class="price-font menu-item-spec">{ reusable cup }</span>
-                    <span class="price-font">11.95 | 12.95</span>
-                </div>
-                <div class="menu-item">
-                    <span class="menu-font menu-item-title">bag of beans</span>
-                    <span class="price-font menu-item-spec">{ *Stocker Specialty | 250g }</span>
-                    <span class="price-font">from 9.50</span>
-                </div>
-                <div class="menu-item">
-                    <span class="menu-font menu-item-title">gift card</span>
-                    <span class="price-font">*up to $1 million </span>
+                <div class="menu-item" th:each="i : ${content.allShopItems}">
+                    <span class="menu-font menu-item-title" th:text="${i.name}"></span>
+                   	<span th:if="${i.detail != null}" class="price-font menu-item-spec" th:text="'{ '+ ${i.detail} + ' }'"></span>
+                    <span class="price-font" th:text="${i.price}">2.7 | 3.5</span>
                 </div>
             </div>
         </div>
@@ -511,21 +407,9 @@
     <section id="about-section">
         <div id="owner-story-container">
             <span id="owner-story-title">MEET YOUR HOSTS</span>
-            <q class="text-font" id="owner-story-text">
-                We are Job and Anne, the proud owners of ‘De Koffieschenkerij’ since 2013. We are thrilled and so happy to welcome you to our beautiful café.
-                <br>
-                In collaboration with ‘de Stichting Oude Kerk’ (the Old Church Foundation) we transformed this old sacristy into a café. The sacristy dates back to 1517!
-               <br>
-                It was important to us to honor the feeling of antiquity and history. We added our personal touches to create a cosy environment for you to relax and enjoy your coffee in. We feel privileged to welcome our guests to such an authentic and historical place.
-               <br>
-                Our main focus is to make our guests happy! Happy with the simple and really good things in life; a delicious cup of coffee, or a freshly baked piece of cake.
-                <br>
-                Everything we do is done with passion and all our products are carefully curated to meet our high quality standards. Our coffee and most of the products we use are organic. We support our local culinary community and partner with artisan bakeries who deliver their fresh baked treats to us every single day!
-               <br>
-                For the ultimate cozy coffee experience, check out our attic. Please tell all your friends, not foes about this hidden gem. Or… forever hold your peace. It will be our little secret 
-            </q>
+            <q class="text-font" id="owner-story-text" th:text="${content.ownerText}"></q>
         </div>
-        <img id="owner-image" src="/src/design/Images/De-Koffieschnkerij-Job-en-Anne-1.jpeg" alt="owners-img">
+        <img id="owner-image" th:src="'getContentImg/'+${content.aboutImage.id}" alt="owners-img">
     </section>
 
 
@@ -556,9 +440,7 @@
         </div>
         <div id="contact-message-container">
             <span id="contact-message-title">CONTACT US</span>
-            <p id="contact-message">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Amet, cras sed sapien pretium elementum. Quam nisl vulputate mauris nam ac ullamcorper arcu. Et sed egestas risus congue. Et enim malesuada et. Ipsum dolor sit amet, consectetur adipisc.
-            </p>
+            <p id="contact-message" th:text="${content.contactText}"></p>
             <div id="contact-btn-container">
                 <div class="contact-btn-group" style="color: var(--darkBlue)">
                     <i class="fa-regular fa-file contact-icon"></i>
@@ -591,7 +473,7 @@
         </div>
         <div class="footer-column">
             <span class="footer-title" style="text-align: right;">site by | James Gabbie</span>
-            <span class="footer-text">last updated: Oct 30 2022</span>
+            <span class="footer-text" th:text="'last updated: '+${#dates.format(content.updatedAt, 'M/dd/yyyy')}"></span>
         </div>
     </section>
 </div>

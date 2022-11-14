@@ -26,11 +26,25 @@
 <form action="#" id="updateImageContent-form" hidden="hidden" style="display: none" method="post" enctype="multipart/form-data">
 	<input name="file" id="updateImageContent-input" type="file" accept="image/*">
 </form>
+<form action="#" id="addItemForm" hidden="hidden" style="display:none" method="post">
+	<input name="type" id="menu-type-input" type="text">
+	<input name="category" id="menu-category-input" type="text">
+	<input name="name" id="menu-name-input" type="text">
+	<input name="detail" id="menu-detail-input" type="text">
+	<input name="price" id="menu-price-input" type="text">
+</form>
+<a id="trashItemLink" hidden="hidden" style="display:none" href="#"></a>
+<a id="goToSiteLink" hidden="hidden" style="display:none" href="/"></a>
+<a id="logoutDash" hidden="hidden" style="display:none" href="/admin/logout"></a>
 
 
 <!-- MAIN VIEW CONTENT -->
 <div id="master-dash-container">
-	<!-- HEADER -->
+	<div th:if="${errors}" style="position: fixed; right: 1em; top: 0; display:flex; flex-direction: row; justify-content: flex-end;">
+		<p th:each="e : ${errors}" th:text="${e}" style="color:var(--darkRed); font-size: 18px; margin: 5px;"></p>
+	</div>
+	<p th:text="${success}" style="position: fixed; right:1em; top: 0; color:var(--green); font-size: 18px; padding:4px;"></p>
+<!-- HEADER -->
 	<div class="dash-row" id="dash-header">
 		<p id="dash-header-title">
 			De Koffie Schenkerij
@@ -39,17 +53,48 @@
 	        </svg>
 			<span id="dash-header-title2" th:text="${user.name}" style="font-size: 20px;">ADMIN DASHBOARD</span>
 		</p>
-		<div class="dash-header-link-group">
+		<div style="margin-left:auto" class="dash-header-link-group" onclick="visitSite()">
 			<i class="fa-solid fa-desktop dash-header-icon"></i>
 			<span class="dash-header-link-text">VIEW SITE</span>
 		</div>
-		<div class="dash-header-link-group">
+		<div class="dash-header-link-group" onclick="viewSettings()">
 			<i class="fa-solid fa-gear dash-header-icon"></i>
 			<span class="dash-header-link-text">SETTINGS</span>
 		</div>
 	</div>
-	<!-- MAIN ADMIN CONTENT -->
-		<!-- TEXT CONTENT -->
+	
+<!-- SETTINGS MENU (FIXED AND HIDDEN ON LOAD) -->
+<div class="dash-settings-container" id="settingsMenu">
+	<div class="dash-settings-item">
+		<span onclick="viewChangePassForm()">change password</span>
+	</div>
+	<form class="settingsForm" id="changePassForm" method="post" action="/admin/changePassword">
+		<div class="menuFormGrp">
+			<span>current pass</span>
+			<input name = "currentPassword" type="password">
+		</div>
+		<div class="menuFormGrp">
+			<span>new pass</span>
+			<input name = "newPassword" type="password">
+		</div>
+		<div class="menuFormGrp">
+			<span>new pass confirm</span>
+			<input name = "newPasswordConfirm" type="password">
+		</div>
+		<div class="menuFormGrp" style="margin-top: 10px">
+			<span style="width: 100%; text-align:center; font-size: 20px; color: var(--darkGreen); margin-bottom: 3px;">update</span>
+			<i class="fa-solid fa-circle-check update-item-button" style="cursor:pointer" onclick="sendChangePassword()"></i>
+		</div>
+	</form>
+	<div class="dash-settings-item">
+		<span onclick="logoutDash()" style="width: 100%; text-align: center">logout</span>
+	</div>
+</div>
+
+
+<!-- MAIN ADMIN CONTENT -->
+
+	<!-- TEXT CONTENT -->
 	<div class="dash-row" id="dash-text-content-container">
 		<span class="dash-content-title">Text Content</span>
 		<div class="dash-content-row">
@@ -71,6 +116,7 @@
 			</div>
 		</div>
 	</div>
+	
 	<!-- IMAGE CONTENT -->
 	<div id="dash-image-content-container">
 		<div class="dash-image-column">
@@ -185,14 +231,272 @@
 			</div>
 		</div>
 	</div>
-		<!-- MENU CONTENT -->
+			
+	<!-- MENU CONTENT -->
 	<div class="dash-row" id="dash-menu-content-container">
 		<span class="dash-content-title">Menu Content</span>
-		<div class="dash-content-row">
-			
+		<div class="dash-content-row table-responsive-sm">
+			<table class="table" id="dash-menu-table">
+			  <thead>
+			    <tr>
+			      <th scope="col">#</th>
+			      <th scope="col">Type</th>
+			      <th scope="col">Category</th>
+			      <th scope="col">Name</th>
+			      <th scope="col">Detail <span style="font-size: 10px;">Seperate With "|"</span></th>
+			      <th scope="col" >Price <span style="font-size: 10px;">Seperate With "|"</span></th>
+			      <th scope="col">Action</th>
+			    </tr>
+			  </thead>
+			  <tbody>
+			  <!-- All Coffee Items  -->
+		  		<tr class="menu-row coffee-row" th:each="item : ${allCoffeeItems}">
+	      		  <th scope="row" th:text="${item.id}" class="item-id-tag"></th>
+			      <td>
+			      	<select class="dash-viewItem-input type-input" disabled onchange="configureUpdateCatagory(value)">
+			      		<option value="cafe">Cafe</option>
+			      		<option value="kitchen">Kitchen</option>
+			      	</select>
+			      </td>
+			      <td>
+			      	<select class="dash-viewItem-input category-input" disabled>
+			      		<option value="coffee" class="cafe-option">Coffee</option>
+			      		<option value="tea" class="cafe-option">Tea</option>
+			      		<option value="cooler" class="cafe-option">Cooler</option>
+			      		<option value="breakfast" class="kitchen-option">Breakfast</option>
+			      		<option value="sweet" class="kitchen-option">Sweet</option>
+			      		<option value="shop" class="kitchen-option">Shop</option>
+			      	</select>
+			      </td>
+			      <td><input class="dash-viewItem-input name-input" disabled th:value="${item.name}"></td>
+			      <td th:if="${item.detail != null}" ><input class="dash-viewItem-input detail-input" th:value="${item.detail}" disabled></td>
+  				      <td th:unless="${item.detail != null}" ><input class="dash-viewItem-input detail-input" disabled></td>
+			      <td><input class="dash-viewItem-input price-input" disabled th:value="${item.price}"></td>
+			      <td class="dash-item-action-td">
+			      	  <i class="fa-solid fa-pen edit-item-button" th:id="${item.id}" onclick="showcaseItemRow(this, 'edit')"></i>
+			      	  <span>|</span>
+			      	  <i class="fa-solid fa-trash-can trash-item-button" th:id="${item.id}" onclick="showcaseItemRow(this, 'trash')"></i>
+			      </td>
+			      <td class="dash-item-action-td hidden-td confirm-action-box">
+			      	  <i class="fa-solid fa-circle-check update-item-button" onclick="updateItem()"></i>
+			      	   <i class="fa-solid fa-circle-check delete-item-button" onclick="deleteItem()"></i>
+			      	  <span>|</span>
+			      	  <i class="fa-solid fa-circle-xmark cancel-item-button" onclick="cancelUpdateItem()"></i>
+			      </td>
+	    		</tr>
+	    		<!-- All Tea Items  -->
+	    		<tr class="menu-row tea-row" th:each="item : ${allTeaItems}">
+	      		  <th scope="row" th:text="${item.id}" class="item-id-tag"></th>
+			      <td>
+			      	<select class="dash-viewItem-input type-input" disabled onchange="configureUpdateCatagory(value)">
+			      		<option value="cafe">Cafe</option>
+			      		<option value="kitchen">Kitchen</option>
+			      	</select>
+			      </td>
+			      <td>
+			      	<select class="dash-viewItem-input category-input" disabled>
+			      		<option value="coffee" class="cafe-option">Coffee</option>
+			      		<option value="tea" class="cafe-option">Tea</option>
+			      		<option value="cooler" class="cafe-option">Cooler</option>
+			      		<option value="breakfast" class="kitchen-option">Breakfast</option>
+			      		<option value="sweet" class="kitchen-option">Sweet</option>
+			      		<option value="shop" class="kitchen-option">Shop</option>
+			      	</select>
+			      </td>
+			      <td><input class="dash-viewItem-input name-input" disabled th:value="${item.name}"></td>
+			      <td th:if="${item.detail != null}" ><input class="dash-viewItem-input detail-input" th:value="${item.detail}" disabled></td>
+  				      <td th:unless="${item.detail != null}" ><input class="dash-viewItem-input detail-input" disabled></td>
+			      <td><input class="dash-viewItem-input price-input" disabled th:value="${item.price}"></td>
+			      <td class="dash-item-action-td">
+			      	  <i class="fa-solid fa-pen edit-item-button" th:id="${item.id}" onclick="showcaseItemRow(this, 'edit')"></i>
+			      	  <span>|</span>
+			      	  <i class="fa-solid fa-trash-can trash-item-button" th:id="${item.id}" onclick="showcaseItemRow(this, 'trash')"></i>
+			      </td>
+			      <td class="dash-item-action-td hidden-td confirm-action-box">
+			      	  <i class="fa-solid fa-circle-check update-item-button" onclick="updateItem()"></i>
+			      	   <i class="fa-solid fa-circle-check delete-item-button" onclick="deleteItem()"></i>
+			      	  <span>|</span>
+			      	  <i class="fa-solid fa-circle-xmark cancel-item-button" onclick="cancelUpdateItem()"></i>
+			      </td>
+	    		</tr>
+
+		    	<!-- All Cooler Items  -->
+		    	<tr class="menu-row cooler-row" th:each="item : ${allCoolerItems}">
+	      		  <th scope="row" th:text="${item.id}" class="item-id-tag"></th>
+			      <td>
+			      	<select class="dash-viewItem-input type-input" disabled onchange="configureUpdateCatagory(value)">
+			      		<option value="cafe">Cafe</option>
+			      		<option value="kitchen">Kitchen</option>
+			      	</select>
+			      </td>
+			      <td>
+			      	<select class="dash-viewItem-input category-input" disabled>
+			      		<option value="coffee" class="cafe-option">Coffee</option>
+			      		<option value="tea" class="cafe-option">Tea</option>
+			      		<option value="cooler" class="cafe-option">Cooler</option>
+			      		<option value="breakfast" class="kitchen-option">Breakfast</option>
+			      		<option value="sweet" class="kitchen-option">Sweet</option>
+			      		<option value="shop" class="kitchen-option">Shop</option>
+			      	</select>
+			      </td>
+			      <td><input class="dash-viewItem-input name-input" disabled th:value="${item.name}"></td>
+			      <td th:if="${item.detail != null}" ><input class="dash-viewItem-input detail-input" th:value="${item.detail}" disabled></td>
+  				      <td th:unless="${item.detail != null}" ><input class="dash-viewItem-input detail-input" disabled></td>
+			      <td><input class="dash-viewItem-input price-input" disabled th:value="${item.price}"></td>
+			      <td class="dash-item-action-td">
+			      	  <i class="fa-solid fa-pen edit-item-button" th:id="${item.id}" onclick="showcaseItemRow(this, 'edit')"></i>
+			      	  <span>|</span>
+			      	  <i class="fa-solid fa-trash-can trash-item-button" th:id="${item.id}" onclick="showcaseItemRow(this, 'trash')"></i>
+			      </td>
+			      <td class="dash-item-action-td hidden-td confirm-action-box">
+			      	  <i class="fa-solid fa-circle-check update-item-button" onclick="updateItem()"></i>
+			      	   <i class="fa-solid fa-circle-check delete-item-button" onclick="deleteItem()"></i>
+			      	  <span>|</span>
+			      	  <i class="fa-solid fa-circle-xmark cancel-item-button" onclick="cancelUpdateItem()"></i>
+			      </td>
+	    		</tr>
+	
+		    	<!-- All Breakfast Items  -->
+				<tr class="menu-row breakfast-row" th:each="item : ${allBreakfastItems}">
+	      		  <th scope="row" th:text="${item.id}" class="item-id-tag"></th>
+			      <td>
+			      	<select class="dash-viewItem-input type-input" disabled onchange="configureUpdateCatagory(value)">
+			      		<option value="cafe">Cafe</option>
+			      		<option value="kitchen">Kitchen</option>
+			      	</select>
+			      </td>
+			      <td>
+			      	<select class="dash-viewItem-input category-input" disabled>
+			      		<option value="coffee" class="cafe-option">Coffee</option>
+			      		<option value="tea" class="cafe-option">Tea</option>
+			      		<option value="cooler" class="cafe-option">Cooler</option>
+			      		<option value="breakfast" class="kitchen-option">Breakfast</option>
+			      		<option value="sweet" class="kitchen-option">Sweet</option>
+			      		<option value="shop" class="kitchen-option">Shop</option>
+			      	</select>
+			      </td>
+			      <td><input class="dash-viewItem-input name-input" disabled th:value="${item.name}"></td>
+			      <td th:if="${item.detail != null}" ><input class="dash-viewItem-input detail-input" th:value="${item.detail}" disabled></td>
+  				      <td th:unless="${item.detail != null}" ><input class="dash-viewItem-input detail-input" disabled></td>
+			      <td><input class="dash-viewItem-input price-input" disabled th:value="${item.price}"></td>
+			      <td class="dash-item-action-td">
+			      	  <i class="fa-solid fa-pen edit-item-button" th:id="${item.id}" onclick="showcaseItemRow(this, 'edit')"></i>
+			      	  <span>|</span>
+			      	  <i class="fa-solid fa-trash-can trash-item-button" th:id="${item.id}" onclick="showcaseItemRow(this, 'trash')"></i>
+			      </td>
+			      <td class="dash-item-action-td hidden-td confirm-action-box">
+			      	  <i class="fa-solid fa-circle-check update-item-button" onclick="updateItem()"></i>
+			      	   <i class="fa-solid fa-circle-check delete-item-button" onclick="deleteItem()"></i>
+			      	  <span>|</span>
+			      	  <i class="fa-solid fa-circle-xmark cancel-item-button" onclick="cancelUpdateItem()"></i>
+			      </td>
+	    		</tr>
+		    	<!-- All Sweet Items  -->
+				<tr class="menu-row sweet-row" th:each="item : ${allSweetItems}">
+	      		  <th scope="row" th:text="${item.id}" class="item-id-tag"></th>
+			      <td>
+			      	<select class="dash-viewItem-input type-input" disabled onchange="configureUpdateCatagory(value)">
+			      		<option value="cafe">Cafe</option>
+			      		<option value="kitchen">Kitchen</option>
+			      	</select>
+			      </td>
+			      <td>
+			      	<select class="dash-viewItem-input category-input" disabled>
+			      		<option value="coffee" class="cafe-option">Coffee</option>
+			      		<option value="tea" class="cafe-option">Tea</option>
+			      		<option value="cooler" class="cafe-option">Cooler</option>
+			      		<option value="breakfast" class="kitchen-option">Breakfast</option>
+			      		<option value="sweet" class="kitchen-option">Sweet</option>
+			      		<option value="shop" class="kitchen-option">Shop</option>
+			      	</select>
+			      </td>
+			      <td><input class="dash-viewItem-input name-input" disabled th:value="${item.name}"></td>
+			      <td th:if="${item.detail != null}" ><input class="dash-viewItem-input detail-input" th:value="${item.detail}" disabled></td>
+  				      <td th:unless="${item.detail != null}" ><input class="dash-viewItem-input detail-input" disabled></td>
+			      <td><input class="dash-viewItem-input price-input" disabled th:value="${item.price}"></td>
+			      <td class="dash-item-action-td">
+			      	  <i class="fa-solid fa-pen edit-item-button" th:id="${item.id}" onclick="showcaseItemRow(this, 'edit')"></i>
+			      	  <span>|</span>
+			      	  <i class="fa-solid fa-trash-can trash-item-button" th:id="${item.id}" onclick="showcaseItemRow(this, 'trash')"></i>
+			      </td>
+			      <td class="dash-item-action-td hidden-td confirm-action-box">
+			      	  <i class="fa-solid fa-circle-check update-item-button" onclick="updateItem()"></i>
+			      	   <i class="fa-solid fa-circle-check delete-item-button" onclick="deleteItem()"></i>
+			      	  <span>|</span>
+			      	  <i class="fa-solid fa-circle-xmark cancel-item-button" onclick="cancelUpdateItem()"></i>
+			      </td>
+	    		</tr>
+		    	<!-- All Shop Items  -->
+				<tr class="menu-row shop-row" th:each="item : ${allShopItems}">
+	      		  <th scope="row" th:text="${item.id}" class="item-id-tag"></th>
+			      <td>
+			      	<select class="dash-viewItem-input type-input" disabled onchange="configureUpdateCatagory(value)">
+			      		<option value="cafe">Cafe</option>
+			      		<option value="kitchen">Kitchen</option>
+			      	</select>
+			      </td>
+			      <td>
+			      	<select class="dash-viewItem-input category-input" disabled>
+			      		<option value="coffee" class="cafe-option">Coffee</option>
+			      		<option value="tea" class="cafe-option">Tea</option>
+			      		<option value="cooler" class="cafe-option">Cooler</option>
+			      		<option value="breakfast" class="kitchen-option">Breakfast</option>
+			      		<option value="sweet" class="kitchen-option">Sweet</option>
+			      		<option value="shop" class="kitchen-option">Shop</option>
+			      	</select>
+			      </td>
+			      <td><input class="dash-viewItem-input name-input" disabled th:value="${item.name}"></td>
+			      <td th:if="${item.detail != null}" ><input class="dash-viewItem-input detail-input" th:value="${item.detail}" disabled></td>
+  				      <td th:unless="${item.detail != null}" ><input class="dash-viewItem-input detail-input" disabled></td>
+			      <td><input class="dash-viewItem-input price-input" disabled th:value="${item.price}"></td>
+			      <td class="dash-item-action-td">
+			      	  <i class="fa-solid fa-pen edit-item-button" th:id="${item.id}" onclick="showcaseItemRow(this, 'edit')"></i>
+			      	  <span>|</span>
+			      	  <i class="fa-solid fa-trash-can trash-item-button" th:id="${item.id}" onclick="showcaseItemRow(this, 'trash')"></i>
+			      </td>
+			      <td class="dash-item-action-td hidden-td confirm-action-box">
+			      	  <i class="fa-solid fa-circle-check update-item-button" onclick="updateItem()"></i>
+			      	   <i class="fa-solid fa-circle-check delete-item-button" onclick="deleteItem()"></i>
+			      	  <span>|</span>
+			      	  <i class="fa-solid fa-circle-xmark cancel-item-button" onclick="cancelUpdateItem()"></i>
+			      </td>
+	    		</tr>
+	    		<!-- BREAK FOR ADD ITEM ROW-->
+	    		<tr>
+	    			<th style="width:auto">Add Menu Item</th>
+	    		</tr>
+	    		<!-- ADD MENU ITEM ROW -->
+		    	<tr id="create-item-tRow">
+	      		  <th scope="row"><i class="fa-solid fa-plus"></i></th>
+			      <td>
+			      	<select id="type-input" class="dash-addItem-input" onchange="configCatagory(value)">
+			      		<option selected>-Choose-</option>
+			      		<option value="cafe">Cafe</option>
+			      		<option value="kitchen">Kitchen</option>
+			      	</select>
+			      </td>
+			      <td>
+			      	<select id="category-input" class="dash-addItem-input" disabled>
+			      		<option selected>-Choose-</option>
+			      		<option value="coffee" class="cafe-option">Coffee</option>
+			      		<option value="tea" class="cafe-option">Tea</option>
+			      		<option value="cooler" class="cafe-option">Cooler</option>
+			      		<option value="breakfast" class="kitchen-option">Breakfast</option>
+			      		<option value="sweet" class="kitchen-option">Sweet</option>
+			      		<option value="shop" class="kitchen-option">Shop</option>
+			      	</select>
+			      </td>
+			      <td><input id="name-input" class="dash-addItem-input"></td>
+			      <td><input id="detail-input" class="dash-addItem-input"></td>
+			      <td><input id="price-input" class="dash-addItem-input"></td>
+			      <td>
+			      	  <i class="fa-solid fa-circle-plus" id="addItem-button" onclick="addItem()"></i>
+			      </td>
+	    		</tr>
+			  </tbody>
+			</table>	
 		</div>
 	</div>
-	
 	
 </div>
 <!-- Javascript -->
@@ -201,6 +505,7 @@
     <!-- JQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
     <!-- Local -->
-    <script src="/js/dash.js"></script>
+    <script src="/js/dash.js" defer></script>
+    <script src="/js/form.js" defer></script>
 </body>
 </html>

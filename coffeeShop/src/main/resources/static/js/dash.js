@@ -1,3 +1,41 @@
+			//##################################
+			//	Setting Functions
+			//##################################
+var siteBtn = $('#goToSiteLink');
+var logoutBtn = $('#logoutDash');
+function visitSite(){
+	siteBtn[0].click();
+}
+function logoutDash(){
+	logoutBtn[0].click();
+}
+
+var settingsMenuContainer = $("#settingsMenu");
+var changePassContainer = $("#changePassForm");
+
+function viewSettings(){
+	changePassContainer.css("display", "none");
+	if(settingsMenuContainer.css("display") == 'none'){
+		settingsMenuContainer.fadeIn(300);
+	} else if(settingsMenuContainer.css("display") != 'none'){
+		settingsMenuContainer.fadeOut(300);
+	}
+}
+
+function viewChangePassForm(){
+	if(changePassContainer.css("display") == 'none'){
+		changePassContainer.fadeIn(300);
+	} else if(changePassContainer.css("display") != 'none'){
+		changePassContainer.fadeOut(300);
+	}
+}
+
+function sendChangePassword(){
+	var changePassForm = $("#changePassForm");
+	changePassForm.submit();
+}
+
+
 
 //TEXT CONTENT VIEW
 
@@ -76,7 +114,7 @@ var contentTextFormData = $("#updateTextContent-input");
 // 
 function updateTextContent(){
 	var inputData = contentTextInput.val();
-	contentTextFormData.val() = inputData;
+	contentTextFormData.val(inputData);
 	var url = "/admin/updateContent/"+activeTextCall;
 	contentTextForm.prop("action", url);
 	contentTextFormData.prop("value", inputData);

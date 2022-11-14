@@ -3,6 +3,12 @@
     color: var(--darkBrown);
     transition: all .2s ease;
 }
+
+input:disabled, select:disabled {
+    background-color: #00000020;
+    color: var(--darkBrown);
+    transition: all .2s ease;
+}
 /* ################################# */
 /* ################################# */
 /* LOGIN/REGISTRATION STYLES */
@@ -92,12 +98,105 @@
 
 
 
+/* SETTINGS MENU STYLES */
+
+.dash-settings-container{
+	min-width: 195px;
+	min-height: 100px;
+	border-radius: 10px;
+	border: 3px solid var(--darkBrown);
+	background-color: var(--cream);
+	position: absolute;
+	top: 110px;
+	right: 1em;
+	padding: .5em;
+	display:flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	filter: var(--shadowDrop1);
+	box-shadow: var(--shadowInsetRow);
+	font-family: var(--headline-font);
+	font-size: 16px;
+	font-weight: 300;
+	z-index: 1;
+}
+
+#settingsMenu{
+	display:none;
+}
+
+.settingsForm{
+	display:flex;
+	flex-direction: column;
+	justify-content: space-between;
+	width: 185px;
+	padding: 10px;
+	margin: 10px 5px 10px 5px;
+	border-radius: 10px;
+	border-top: 1px solid var(--darkBrown);
+	border-bottom: 1px solid var(--darkBrown);
+	
+	background-color: var(--white);
+	filter: var(--shadowDrop1);
+}
+
+.menuFormGrp{
+	display:flex;
+	flex-direction: column;
+}
+
+.menuFormGrp input{
+	border-radius: 5px;
+	border-width: .5px;
+	filter: var(--shadowDrop1);
+}
+
+
+#changePassForm{
+	display:none;
+}
+
+
+
+
+
+
+
+
+.dash-settings-item{
+	height: 30px;
+	min-width: auto;
+	max-width: 100%;
+	padding: 5px 10px;
+	margin: 10px 5px;
+	border-radius: 10px;
+	border-top: 1px solid var(--darkBrown);
+	border-bottom: 1px solid var(--darkBrown);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: var(--white);
+	filter: var(--shadowDrop1);
+	transition: all .2s ease; 
+}
+
+.dash-settings-item:hover{
+	cursor: pointer;
+	letter-spacing: 2px;
+	background-color: var(--brown);
+	transition: all .2s ease; 
+}
+
+
+
+
+
 
 /* DASH HEADER/NAV MENU STYLES */
 
 #dash-header{
-	align-items: center;
-	min-height: 10vh;
+	height: 5em;
 	border-bottom: .5px solid var(--darkBrown);
 }
 
@@ -144,7 +243,8 @@
 .dash-header-link-group:hover{
 	cursor:pointer;
 	color: var(--brown);
-	margin-bottom: 3px;
+	margin-bottom: 0px;
+	
 	filter: var(--shadowDrop1);	
 	transition: all .2s ease;
 }
@@ -175,6 +275,9 @@
 	font-size: 50px;
 	color: var(--darkBrown);
 	border-bottom: .5px solid var(--darkBrown);
+	position: absolute;
+	top: 0;
+	left: 2em;
 	z-index: 1;
 }
 
@@ -307,13 +410,6 @@
 
 
 
-/* MENU CONTENT STYLES */
-#dash-menu-content-container{
-	flex-direction: column;
-	min-height: 50vh;
-	border-bottom: .5px solid var(--darkBrown);
-}
-
 
 /* IMAGE CONTENT STYLES */
 #dash-image-content-container{
@@ -357,8 +453,8 @@
 	position:absolute;
 	top: 5px;
 	left: 5px;
-	width: 95%;
-	height: 95%;
+	width: 240px;
+	max-height: 225px;
 	object-fit: contain;
 	z-index: -1;
 }
@@ -416,4 +512,228 @@
 .dash-img-icon{
 	display:none;
 }
+
+
+/* MENU CONTENT STYLES */
+#dash-menu-content-container{
+	flex-direction: column;
+	align-items:center;
+	align-content: center;
+	justify-content: center;
+	min-height: 50vh;
+	border-bottom: .5px solid var(--darkBrown);
+}
+
+#dash-menu-table{
+	margin-top: 5em;
+}
+
+tr th:first-child{
+	width: 150px;
+}
+
+tr th{
+	max-width: 100px;
+	text-align: center;
+}
+
+td, th{
+	height: 50px;
+}
+
+table input, table select{
+	border-radius: 10px;
+}
+
+table input{
+	padding: 4px;
+}
+
+table select{
+	padding: 3px;
+}
+
+#create-item-tRow{
+	background-color: var(--blueOpac);
+}
+
+.kitchen-option{
+	display:none;
+}
+
+.cafe-option{
+	display:none;
+}
+
+#price-input{
+	width: 100px;
+}
+
+.needInputAlert{
+	border: 2px solid var(--darkRed);
+	box-shadow: 0px 0px 7px var(--red);
+}
+
+#addItem-button{
+	font-size: 25px;
+	color: var(--darkGreen);
+	transition: all .2s ease;
+}
+
+#addItem-button:hover{
+	font-size: 30px;
+	color: var(--green);
+	transition: all .2s ease;
+}
+
+
+.coffee-row{
+	background-color: var(--brownOpac);
+}
+
+.tea-row{
+	background-color: var(--darkGreenOpac);
+}
+
+.cooler-row{
+	background-color: var(--blueOpac);
+}
+
+.breakfast-row{
+	background-color: var(--darkYellowOpac);
+}
+
+.sweet-row{
+	background-color: var(--darkRedOpac);
+}
+
+.shop-row{
+	background-color: var(--darkBrownOpac);
+}
+
+
+.showcase-row{
+	background: var(--white);
+	transition: all .2s ease;
+}
+
+
+
+table .dash-item-action-td{
+	background: var(--white);
+	min-width: 100px;
+	display:flex;
+	align-items:center;
+	justify-content: space-around;
+	transition: all .2s ease;
+}
+
+
+table .hidden-td{
+	display:none;
+	transition: all .2s ease;
+}
+
+
+.edit-item-button{
+	font-size: 25px;
+	align-self:center;
+	color: var(--darkYellow);
+	transition: all .2s ease;
+}
+
+.edit-item-button:hover{
+	font-size: 30px;
+	color: var(--yellow);
+	transition: all .2s ease;
+}
+
+.trash-item-button{
+	font-size: 25px;
+	align-self:center;
+	color: var(--darkBlue);
+	transition: all .2s ease;
+}
+
+.trash-item-button:hover{
+	font-size: 30px;
+	color: var(--blue);
+	transition: all .2s ease;
+}
+
+
+.update-item-button{
+	font-size: 25px;
+	align-self:center;
+	color: var(--darkGreen);
+	transition: all .2s ease;
+}
+
+.update-item-button:hover{
+	font-size: 30px;
+	color: var(--green);
+	transition: all .2s ease;
+}
+
+.delete-item-button{
+	font-size: 25px;
+	align-self:center;
+	color: var(--darkRed);
+	display:none;
+	transition: all .2s ease;
+}
+
+.delete-item-button:hover{
+	font-size: 30px;
+	color: var(--red);
+	transition: all .2s ease;
+}
+
+.cancel-item-button{
+	font-size: 25px;
+	align-self:center;
+	color: var(--darkYellow);
+	transition: all .2s ease;
+}
+
+.cancel-item-button:hover{
+	font-size: 30px;
+	color: var(--yellow);
+	transition: all .2s ease;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

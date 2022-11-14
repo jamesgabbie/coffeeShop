@@ -9,24 +9,29 @@
 :root{
     /* colors */
     --plum: #725B52;
+    --plumOpac:#725B5230;
     --brown: #AF8947;
+    --brownOpac: #AF894730;
     --darkBrown: #3E312C;
+    --darkBrownOpac: #3E312C30;
     --green: #688E26;
     --darkGreen: #516F1D;
-    --darkGreenOpac: #516F1D20;
+    --darkGreenOpac: #516F1D30;
     --blue: #A8C1C7;
     --blueOpac: #A8C1C730;
     --darkBlue: #2B6978;
     --yellow: #EABD20;
     --darkYellow: #C89D06;
+    --darkYellowOpac:#C89D0630;
     --red: #CE5C5C;
     --darkRed: #AC1313;
+    --darkRedOpac: #AC131330;
     --black: #131515;
     --blackOpac: #13151525;
     --cream: #E8DCC9;
     --creamOpac: #E8DCC960;
     --white: #F0EEEB;
-    --whiteOpac: #F0EEEB;
+    --whiteOpac: #F0EEEB30;
     --grey: #FCF7F8;
     --shadowBlack: #13151540;
 

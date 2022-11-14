@@ -1,7 +1,9 @@
 package com.jamesgabbie.coffeeShop.models;
 
+import java.util.Date;
 import java.util.List;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
 
 
@@ -11,16 +13,22 @@ public class Content {
 	private String welcomeText;
 	private String ownerText;
 	private String contactText;
-	private List<Item> allItems;
-	private List<Item> cafeItems;
-	private List<Item> kitchenItems;
-	private List<Image> allImages;
-	private Image titleImage;
+	private List<Item> allCoffeeItems;
+	private List<Item> allTeaItems;
+	private List<Item> allCoolerItems;
+	private List<Item> allBreakfastItems;
+	private List<Item> allSweetItems;
+	private List<Item> allShopItems;
+	private Image logoImage;
+	private Image bookendImage;
 	private Image welcomeImage;
 	private Image aboutImage;
 	private Image menuImage1;
 	private Image menuImage2;
 	private Image menuImage3;
+	private Image auxImage;
+	@DateTimeFormat(pattern="yyyy-MM-dd")
+    private Date updatedAt;
  
 	public Content() {
 		
@@ -58,44 +66,68 @@ public class Content {
 		this.contactText = contactText;
 	}
 
-	public List<Item> getAllItems() {
-		return allItems;
+	public List<Item> getAllCoffeeItems() {
+		return allCoffeeItems;
 	}
 
-	public void setAllItems(List<Item> allItems) {
-		this.allItems = allItems;
+	public void setAllCoffeeItems(List<Item> allCoffeeItems) {
+		this.allCoffeeItems = allCoffeeItems;
 	}
 
-	public List<Item> getCafeItems() {
-		return cafeItems;
+	public List<Item> getAllTeaItems() {
+		return allTeaItems;
 	}
 
-	public void setCafeItems(List<Item> cafeItems) {
-		this.cafeItems = cafeItems;
+	public void setAllTeaItems(List<Item> allTeaItems) {
+		this.allTeaItems = allTeaItems;
 	}
 
-	public List<Item> getKitchenItems() {
-		return kitchenItems;
+	public List<Item> getAllCoolerItems() {
+		return allCoolerItems;
 	}
 
-	public void setKitchenItems(List<Item> kitchenItems) {
-		this.kitchenItems = kitchenItems;
+	public void setAllCoolerItems(List<Item> allCoolerItems) {
+		this.allCoolerItems = allCoolerItems;
 	}
 
-	public List<Image> getAllImages() {
-		return allImages;
+	public List<Item> getAllBreakfastItems() {
+		return allBreakfastItems;
 	}
 
-	public void setAllImages(List<Image> allImages) {
-		this.allImages = allImages;
+	public void setAllBreakfastItems(List<Item> allBreakfastItems) {
+		this.allBreakfastItems = allBreakfastItems;
 	}
 
-	public Image getTitleImage() {
-		return titleImage;
+	public List<Item> getAllSweetItems() {
+		return allSweetItems;
 	}
 
-	public void setTitleImage(Image titleImage) {
-		this.titleImage = titleImage;
+	public void setAllSweetItems(List<Item> allSweetItems) {
+		this.allSweetItems = allSweetItems;
+	}
+
+	public List<Item> getAllShopItems() {
+		return allShopItems;
+	}
+
+	public void setAllShopItems(List<Item> allShopItems) {
+		this.allShopItems = allShopItems;
+	}
+
+	public Image getLogoImage() {
+		return logoImage;
+	}
+
+	public void setLogoImage(Image logoImage) {
+		this.logoImage = logoImage;
+	}
+
+	public Image getBookendImage() {
+		return bookendImage;
+	}
+
+	public void setBookendImage(Image bookendImage) {
+		this.bookendImage = bookendImage;
 	}
 
 	public Image getWelcomeImage() {
@@ -137,25 +169,22 @@ public class Content {
 	public void setMenuImage3(Image menuImage3) {
 		this.menuImage3 = menuImage3;
 	}
+	
 
-	public Content(User owner, String welcomeText, String ownerText, String contactText, List<Item> allItems,
-			List<Item> cafeItems, List<Item> kitchenItems, List<Image> allImages, Image titleImage, Image welcomeImage,
-			Image aboutImage, Image menuImage1, Image menuImage2, Image menuImage3) {
-		this.owner = owner;
-		this.welcomeText = welcomeText;
-		this.ownerText = ownerText;
-		this.contactText = contactText;
-		this.allItems = allItems;
-		this.cafeItems = cafeItems;
-		this.kitchenItems = kitchenItems;
-		this.allImages = allImages;
-		this.titleImage = titleImage;
-		this.welcomeImage = welcomeImage;
-		this.aboutImage = aboutImage;
-		this.menuImage1 = menuImage1;
-		this.menuImage2 = menuImage2;
-		this.menuImage3 = menuImage3;
+	public Date getUpdatedAt() {
+		return updatedAt;
 	}
 
+	public void setUpdatedAt(Date updatedAt) {
+		this.updatedAt = updatedAt;
+	}
+
+	public Image getAuxImage() {
+		return auxImage;
+	}
+
+	public void setAuxImage(Image auxImage) {
+		this.auxImage = auxImage;
+	}
 
 }

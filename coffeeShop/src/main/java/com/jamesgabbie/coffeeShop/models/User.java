@@ -33,13 +33,12 @@ public class User {
 
 // 	CONTENT
     @Column(nullable = false)
-    @Size(max = 500, message="Exceeded Max Characters of 600")
+    @Size(max = 600, message="Exceeded Max Characters of 600")
     private String welcomeText = "";
     @Column(nullable = false)
-    @Size(max = 500, message="Exceeded Max Characters of 600")
+    @Size(max = 600, message="Exceeded Max Characters of 600")
     private String contactText = "";
     @Column(nullable = false)
-    @Size(max = 500, message="Exceeded Max Characters of 600")
     private String aboutText = "";
     @Column(nullable = true)
     @OneToMany(mappedBy="owner", fetch = FetchType.LAZY)

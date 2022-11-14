@@ -47,7 +47,19 @@ public class AdminController {
 			User user = uService.findUser((long)session.getAttribute("user__id"));
 			viewModel.addAttribute("user", user);
 			
-			
+			List<Item> allCoffeeItems = itemService.findAllByCategory("coffee");
+			viewModel.addAttribute("allCoffeeItems", allCoffeeItems);
+			List<Item> allTeaItems = itemService.findAllByCategory("tea");
+			viewModel.addAttribute("allTeaItems", allTeaItems);
+			List<Item> allCoolerItems = itemService.findAllByCategory("cooler");
+			viewModel.addAttribute("allCoolerItems", allCoolerItems);
+			List<Item> allBreakfastItems = itemService.findAllByCategory("breakfast");
+			viewModel.addAttribute("allBreakfastItems", allBreakfastItems);
+			List<Item> allSweetItems = itemService.findAllByCategory("sweet");
+			viewModel.addAttribute("allSweetItems", allSweetItems);
+			List<Item> allShopItems = itemService.findAllByCategory("shop");
+			viewModel.addAttribute("allShopItems", allShopItems);
+						
 			return "dash";
 		}
 	}
@@ -209,8 +221,44 @@ public class AdminController {
 		return "redirect:/admin/dash";
 	}
 	
+	// Update Content Item 	
+	@PostMapping("/updateItem/{id}")
+	public String updateItem(@PathVariable("id")Long id, @RequestParam("type")String type, @RequestParam("name")String name,
+							@RequestParam("category")String category, @RequestParam("detail")String detail,
+							@RequestParam("price")String price, HttpSession session){
+
+		if(session.getAttribute("user__id") == null) {
+			return "redirect:/admin/login";
+		}
+		
+		User owner = uService.findUser((long)session.getAttribute("user__id"));
+		Item item = itemService.findItem(id);
+		item.setType(type);
+		item.setCategory(category);
+		item.setName(name);
+		item.setPrice(price);
+		if(detail.isBlank() != true) {
+			item.setDetail(detail);
+		}
+		item.setOwner(owner);
+		itemService.saveItem(item);
+		
+		return "redirect:/admin/dash";
+	}
 	
 	
+	//DeleteItem
+	@GetMapping("/deleteItem/{id}")
+	public String deleteItem(@PathVariable("id")Long id, HttpSession session) {
+		if(session.getAttribute("user__id") == null) {
+			return "redirect:/admin/login";
+		}
+		
+		itemService.deleteItem(id);
+		
+		
+		return "redirect:/admin/dash";
+	}
 	
 	
 //	Add Content Image
@@ -222,10 +270,53 @@ public class AdminController {
 		Long userId = (Long)session.getAttribute("user__id");
 		User loggedUser = this.uService.findUser(userId);
 		
+		List<Image> allUserImages = loggedUser.getSavedImages();
+		for(Image img : allUserImages) {
+			if(img.getPlacement().equals(type)==true) {
+				imgService.deleteImage(img.getId());
+			}
+		}
+		
+		
 		
 		imgService.uploadImage(file, loggedUser, type);
 		
+		
+		
 		return "redirect:/admin/dash";
+	}
+	
+	
+	//Change User/Admin Password
+	@PostMapping("/changePassword")
+	public String changePassword(@RequestParam("currentPassword") String currPass, @RequestParam("newPassword")String newPass,
+									@RequestParam("newPasswordConfirm") String newPassConfirm, HttpSession session, RedirectAttributes redirectAttr) {
+		if(session.getAttribute("user__id") == null) {
+			return "redirect:/admin/login";
+		} else {
+			List<String> errors = new ArrayList<String>();
+			Long userId = (long)session.getAttribute("user__id");
+			User user = uService.findUser(userId);
+			
+			if(uService.authenticateUser(user.getEmail(), currPass) == false) {
+				errors.add("failed: password incorrect");
+			}
+			if(newPassConfirm.equals(newPass) == false) {
+				errors.add("failed: new passwords do not match");
+			}
+			if(currPass.isBlank() == true || newPass.isBlank() == true || newPassConfirm.isBlank() == true) {
+				errors.add("failed: all fields required");
+			}
+			if(errors.size() > 0) {
+				redirectAttr.addFlashAttribute("errors", errors);
+				return "redirect:/admin/dash";
+			} else {
+				user.setPassword(uService.hashPass(newPass));
+				uService.updateUser(user.getId());
+				redirectAttr.addFlashAttribute("success", "success: password changed");
+				return "redirect:/admin/dash";
+			}
+		}
 	}
 	
 	
