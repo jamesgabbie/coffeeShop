@@ -9,7 +9,8 @@
 	<link type="text/css" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous" defer>
 		<!-- Font Awesome | Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-        <!-- Local/External Styles -->
+    <!-- JQUERY UI CSS -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/themes/base/jquery-ui.min.css" integrity="sha512-ELV+xyi8IhEApPS/pSj66+Jiw+sOT1Mqkzlh8ExXihe4zfqbWkxPRi8wptXIO9g73FSlhmquFlUOuMSoXz5IRw==" crossorigin="anonymous" referrerpolicy="no-referrer" />        <!-- Local/External Styles -->
 	<link href="/css/master.css" type="text/css" rel="stylesheet">
     <link href="/css/sections.css" type="text/css" rel="stylesheet">
     <link href="/css/mobile.css" type="text/css" rel="stylesheet">
@@ -18,6 +19,10 @@
 <body>
 <!-- ####################################################### -->
 <!-- ####################################################### -->
+<div id="loading-cover"></div>
+
+
+
 <!-- FIXED CONTENT -->
 <div id="navBar">
     <div id="navBar-title">
@@ -39,13 +44,16 @@
 <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="canvas-navMenu" aria-labelledby="canvas-navMenuLabel">
     <div class="offcanvas-body">
         <div class="canvas-menu-container">
-            <p class="canvas-p">Go To:</p>
+            <img class="canvas-img" alt="logo-small.img" th:src="'/getContentImg/'+${content.logoImage.id}">
             <span class="canvas-nav-link">- top</span>
             <span class="canvas-nav-link">- welcome</span>
             <span class="canvas-nav-link">- cafe menu</span>
             <span class="canvas-nav-link">- kitchen menu</span>
             <span class="canvas-nav-link">- about</span>
             <span class="canvas-nav-link">- contact</span>
+        </div>
+         <div class="canvas-menu-container">
+            <button class="canvas-icon-button"></button>
         </div>
     </div>
   </div>
@@ -57,17 +65,17 @@
 
     <!-- WELCOME SECTION -->
     <section id="welcome-section">
-        <img id="welcome-title" th:src="'getContentImg/'+${content.logoImage.id}" alt="welcomeTitle-img">
+        <img id="welcome-title" th:src="'/getContentImg/'+${content.logoImage.id}" alt="welcomeTitle-img">
         <div class="showcase-row" id="welcome-subtitle-container">
             <span class="subTitle-font" id="welcome-subtitle">drink + eat + amsterdam</span>
         </div>
-        <img id="welcome-image" th:src="'getContentImg/'+${content.bookendImage.id}" alt="">
+        <img id="welcome-image" th:src="'/getContentImg/'+${content.bookendImage.id}" alt="">
     </section>
 
 
     <!-- LOCATION SECTION -->
     <section id="location-section">
-        <img id="location-img" th:src="'getContentImg/'+${content.welcomeImage.id}" alt="building-img">
+        <img id="location-img" th:src="'/getContentImg/'+${content.welcomeImage.id}" alt="building-img">
         <div id="location-message-container">
             <div id="location-text-box">
                 <span class="text-font" id="location-text" th:text="${content.welcomeText}"></span>
@@ -232,9 +240,9 @@
 
     <!-- MENU PICTURE SECTION -->
     <section id="menu-image-section">
-        <img class="menu-image" th:src="'getContentImg/'+${content.menuImage1.id}" alt="menuImage1">
-        <img class="menu-image" th:src="'getContentImg/'+${content.menuImage2.id}" alt="menuImage2">
-        <img class="menu-image" th:src="'getContentImg/'+${content.menuImage3.id}" alt="menuImage3">
+        <img class="menu-image" th:src="'/getContentImg/'+${content.menuImage1.id}" alt="menuImage1">
+        <img class="menu-image" th:src="'/getContentImg/'+${content.menuImage2.id}" alt="menuImage2">
+        <img class="menu-image" th:src="'/getContentImg/'+${content.menuImage3.id}" alt="menuImage3">
     </section>
 
 
@@ -409,7 +417,7 @@
             <span id="owner-story-title">MEET YOUR HOSTS</span>
             <q class="text-font" id="owner-story-text" th:text="${content.ownerText}"></q>
         </div>
-        <img id="owner-image" th:src="'getContentImg/'+${content.aboutImage.id}" alt="owners-img">
+        <img id="owner-image" th:src="'/getContentImg/'+${content.aboutImage.id}" alt="owners-img">
     </section>
 
 
@@ -481,8 +489,8 @@
     <!-- Bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
     <!-- JQuery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-    <!-- Local -->
-    <script src="/src/js/app.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js" integrity="sha512-57oZ/vW8ANMjR/KQ6Be9v/+/h6bq9/l3f0Oc7vn6qMqyhvPd1cvKBRWWpzu0QoneImqr2SkmO4MSqU+RpHom3Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="/js/app.js" async="true"></script>
 </body>
 </html>
