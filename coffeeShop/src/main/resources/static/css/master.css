@@ -84,6 +84,7 @@ section{
 
 
 /* FONT STYLES */
+
 li{
     list-style: none;
     text-align: center;
@@ -149,3 +150,19 @@ li{
     font-weight: 500;
     letter-spacing: 0.095em;
 }
+
+
+/* LocoScroll Classes and Ids */
+
+.ls-hide{
+	opacity: 0;
+	transition: opacity 1s ease;
+}
+
+.ls-show{
+	opacity: 1;
+	transition: opacity 1s ease;
+}
+
+
+

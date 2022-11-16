@@ -14,14 +14,13 @@
 	<link href="/css/master.css" type="text/css" rel="stylesheet">
     <link href="/css/sections.css" type="text/css" rel="stylesheet">
     <link href="/css/mobile.css" type="text/css" rel="stylesheet">
+    <link href="/css/loco-scroll.css" type="text/css" rel="stylesheet" fetchpriority="high">
 
 </head>
 <body>
 <!-- ####################################################### -->
 <!-- ####################################################### -->
 <div id="loading-cover"></div>
-
-
 
 <!-- FIXED CONTENT -->
 <div id="navBar">
@@ -45,15 +44,30 @@
     <div class="offcanvas-body">
         <div class="canvas-menu-container">
             <img class="canvas-img" alt="logo-small.img" th:src="'/getContentImg/'+${content.logoImage.id}">
-            <span class="canvas-nav-link">- top</span>
-            <span class="canvas-nav-link">- welcome</span>
-            <span class="canvas-nav-link">- cafe menu</span>
-            <span class="canvas-nav-link">- kitchen menu</span>
-            <span class="canvas-nav-link">- about</span>
-            <span class="canvas-nav-link">- contact</span>
+            <span id="top-link" class="canvas-nav-link" onclick="goToSection('welcome-section')">- top</span>
+            <span class="canvas-nav-link" onclick="goToSection('location-section')">- welcome</span>
+            <span class="canvas-nav-link" onclick="goToSection('cafe-menu-section')">- cafe menu</span>
+            <span class="canvas-nav-link" onclick="goToSection('kitchen-menu-section')">- kitchen menu</span>
+            <span class="canvas-nav-link" onclick="goToSection('about-section')">- about</span>
+            <span class="canvas-nav-link" onclick="goToSection('contact-section')">- contact</span>
         </div>
-         <div class="canvas-menu-container">
-            <button class="canvas-icon-button"></button>
+        <div class="canvas-menu-container" style="flex-direction: row; align-items:center; flex-wrap:wrap; align-content: center; justify-content: space-around; width: 100%; margin-top: 10%;">
+        	 <div class="contact-btn-group">
+                    <i class="fa-sharp fa-regular fa-compass contact-icon" onclick="goToLink('map')"></i>
+                    <span class="contact-icon-text">Directions</span>
+             </div>
+             <div class="contact-btn-group" style="color: var(--red)">
+                 <i class="fa-brands fa-yelp contact-icon" onclick="goToLink('yelp')"></i>
+                 <span class="contact-icon-text">Yelp</span>
+             </div>
+             <div class="contact-btn-group" style="color: var(--brown)">
+                 <i class="fa-brands fa-instagram contact-icon" onclick="goToLink('instagram')"></i>
+                 <span class="contact-icon-text" >Instagram</span>
+             </div>
+             <div class="contact-btn-group" style="color: var(--darkBlue)">
+                 <i class="fa-regular fa-file contact-icon"></i>
+                 <span class="contact-icon-text">Menu</span>
+             </div>  
         </div>
     </div>
   </div>
@@ -61,22 +75,22 @@
 <!-- ####################################################### -->
 <!-- ####################################################### -->
 <!-- MASTER CONTENT CONTAINER -->
-<div id="mstr-view-container">
+<div id="mstr-view-container" data-scroll-container>
 
     <!-- WELCOME SECTION -->
-    <section id="welcome-section">
+    <section id="welcome-section" data-scroll-section>
         <img id="welcome-title" th:src="'/getContentImg/'+${content.logoImage.id}" alt="welcomeTitle-img">
         <div class="showcase-row" id="welcome-subtitle-container">
             <span class="subTitle-font" id="welcome-subtitle">drink + eat + amsterdam</span>
         </div>
-        <img id="welcome-image" th:src="'/getContentImg/'+${content.bookendImage.id}" alt="">
+        <img data-scroll data-scroll-direction="horizontal" data-scroll-speed="-1" data-scroll-position="left" id="welcome-image" th:src="'/getContentImg/'+${content.bookendImage.id}" alt="">
     </section>
 
 
     <!-- LOCATION SECTION -->
-    <section id="location-section">
-        <img id="location-img" th:src="'/getContentImg/'+${content.welcomeImage.id}" alt="building-img">
-        <div id="location-message-container">
+    <section id="location-section" data-scroll-section>
+        <img id="location-img" th:src="'/getContentImg/'+${content.welcomeImage.id}" alt="building-img" data-scroll data-scroll-call="focusLocationImage" data-scroll-offset="40%">
+        <div id="location-message-container" data-scroll class="ls-hide" data-scroll-class="ls-show" data-scroll-offset="45%">
             <div id="location-text-box">
                 <span class="text-font" id="location-text" th:text="${content.welcomeText}"></span>
             </div>
@@ -95,15 +109,14 @@
     
     
     <!--  CAFE MENU SECTION -->
-    <section class="menu-section">
+    <section class="menu-section" id="cafe-menu-section" data-scroll-section>
         <div class="menu-title">
             Cafe Menu
         </div>
         <!-- COFFEE MENU -->
-        <div class="menu-type-container">
+        <div class="menu-type-container ls-hide" data-scroll data-scroll-class="ls-show" data-scroll-offset="45%">
             <span class="headline-font" style="color: var(--brown)">Coffee</span>
             <svg th:fragment="coffeeDrip" class="drip-icon" id="coffee-drip" width="50" height="60" viewBox="0 0 50 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-                
                 <g filter="url(#filter0_i_36_735)">
                 <path d="M50 35.3846C50 48.9793 38.8071 60 25 60C11.1929 60 0 48.9793 0 35.3846C0 21.7899 26.7857 0 25 0C23.2143 0 50 21.7899 50 35.3846Z" fill="#AF8947"/>
                 </g>
@@ -144,7 +157,7 @@
                 </clipPath>
                 </defs>
             </svg>
-            <div class="menu-list">
+            <div class="menu-list" data-scroll data-scroll-call="showCafeItems" data-scroll-offset="45%">
                 <div class="menu-item" th:each="i : ${content.allCoffeeItems}">
                     <span class="menu-font menu-item-title" th:text="${i.name}"></span>
                    	<span th:if="${i.detail != null}" class="price-font menu-item-spec" th:text="'{ '+ ${i.detail} + ' }'"></span>
@@ -153,7 +166,7 @@
             </div>
         </div>
         <!-- TEA MENU -->
-        <div class="menu-type-container">
+        <div class="menu-type-container ls-hide" data-scroll data-scroll-class="ls-show" data-scroll-offset="45%">
             <span class="headline-font" style="color: var(--darkGreen)">Tea</span>
             <svg th:fragment="teaDrip" class="drip-icon" id="tea-drip" width="50" height="60" viewBox="0 0 50 60" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M50 35.3846C50 48.9793 38.8071 60 25 60C11.1929 60 0 48.9793 0 35.3846C0 21.7899 26.7857 0 25 0C23.2143 0 50 21.7899 50 35.3846Z" fill="#688E26"/>
@@ -188,7 +201,7 @@
             </div>
         </div>
         <!-- COOLERS MENU -->
-        <div class="menu-type-container">
+        <div class="menu-type-container ls-hide" data-scroll data-scroll-class="ls-show" data-scroll-offset="45%">
             <span class="headline-font" style="color: var(--darkBlue)">Coolers</span>
             <svg th:fragment="coolerDrip" class="drip-icon" id="cooler-drip" width="50" height="60" viewBox="0 0 50 60" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g filter="url(#filter0_i_36_737)">
@@ -239,21 +252,21 @@
 
 
     <!-- MENU PICTURE SECTION -->
-    <section id="menu-image-section">
-        <img class="menu-image" th:src="'/getContentImg/'+${content.menuImage1.id}" alt="menuImage1">
-        <img class="menu-image" th:src="'/getContentImg/'+${content.menuImage2.id}" alt="menuImage2">
-        <img class="menu-image" th:src="'/getContentImg/'+${content.menuImage3.id}" alt="menuImage3">
+    <section id="menu-image-section" data-scroll-section>
+        <img class="menu-image" th:src="'/getContentImg/'+${content.menuImage1.id}" alt="menuImage1" data-scroll data-scroll-speed="1">
+        <img class="menu-image" th:src="'/getContentImg/'+${content.menuImage2.id}" alt="menuImage2" data-scroll data-scroll-speed="-2">
+        <img class="menu-image" th:src="'/getContentImg/'+${content.menuImage3.id}" alt="menuImage3" data-scroll data-scroll-speed="1">
     </section>
 
 
 
     <!-- KITCKEN MENU SECTION -->
-    <section class="menu-section">
+    <section class="menu-section" id="kitchen-menu-section" data-scroll-section>
         <div class="menu-title">
             Kitchen Menu
         </div>
         <!-- BREAKFAST MENU -->
-        <div class="menu-type-container">
+        <div class="menu-type-container ls-hide" data-scroll data-scroll-class="ls-show" data-scroll-offset="45%">
             <span class="headline-font" style="color: var(--darkYellow)">Breakfast</span>
             <svg th:fragment="eggDrip" class="drip-icon" id="egg-drip"  width="50" height="60" viewBox="0 0 50 60" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g filter="url(#filter0_i_36_740)">
@@ -296,7 +309,7 @@
                 </clipPath>
                 </defs>
             </svg>
-            <div class="menu-list">
+            <div class="menu-list" data-scroll data-scroll-call="showKitchenItems" data-scroll-offset="45%">
                 <div class="menu-item" th:each="i : ${content.allBreakfastItems}">
                     <span class="menu-font menu-item-title" th:text="${i.name}"></span>
                    	<span th:if="${i.detail != null}" class="price-font menu-item-spec" th:text="'{ '+ ${i.detail} + ' }'"></span>
@@ -305,7 +318,7 @@
             </div>
         </div>
         <!-- SWEETS MENU -->
-        <div class="menu-type-container">
+        <div class="menu-type-container ls-hide" data-scroll data-scroll-class="ls-show" data-scroll-offset="45%">
             <span class="headline-font" style="color: var(--darkRed)">Sweets</span>
             <svg th:fragment="sweetDrip" class="drip-icon" id="sweet-drip"  width="50" height="60" viewBox="0 0 50 60" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g filter="url(#filter0_i_36_739)">
@@ -357,7 +370,7 @@
             </div>
         </div>
         <!-- SHOP MENU -->
-        <div class="menu-type-container">
+        <div class="menu-type-container ls-hide" data-scroll data-scroll-class="ls-show" data-scroll-offset="45%">
             <span class="headline-font" style="color: var(--darkBrown)">SHOP</span>
             <svg th:fragment="shopDrip" class="drip-icon" id="shop-drip" width="50" height="60" viewBox="0 0 50 60" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g filter="url(#filter0_i_36_738)">
@@ -412,19 +425,19 @@
 
 
     <!-- OWNER SECTION -->
-    <section id="about-section">
+    <section id="about-section" data-scroll-section>
         <div id="owner-story-container">
             <span id="owner-story-title">MEET YOUR HOSTS</span>
-            <q class="text-font" id="owner-story-text" th:text="${content.ownerText}"></q>
+            <q class="text-font ls-hide" data-scroll data-scroll-class="ls-show" data-scroll-offset="40%" id="owner-story-text" th:text="${content.ownerText}"></q>
         </div>
-        <img id="owner-image" th:src="'/getContentImg/'+${content.aboutImage.id}" alt="owners-img">
+        <img id="owner-image" th:src="'/getContentImg/'+${content.aboutImage.id}" alt="owners-img" data-scroll data-scroll-call="focusAboutImage" data-scroll-offset="40%">
     </section>
 
 
     <!-- CONTACT SECTION -->
-    <section id="contact-section">
+    <section id="contact-section" data-scroll-section>
         <div id="contact-form-container">
-            <form id="contact-form" action="">
+            <form id="contact-form" action="#">
                 <div class="contact-form-group">
                     <span class="contact-form-label">name:</span>
                     <input class="contact-form-input" type="text">
@@ -449,30 +462,29 @@
         <div id="contact-message-container">
             <span id="contact-message-title">CONTACT US</span>
             <p id="contact-message" th:text="${content.contactText}"></p>
-            <div id="contact-btn-container">
+            <div id="contact-btn-container">        
+                <div class="contact-btn-group">
+                    <i class="fa-sharp fa-regular fa-compass contact-icon" onclick="goToLink('map')"></i>
+                    <span class="contact-icon-text">Directions</span>
+                </div>
+                <div class="contact-btn-group" style="color: var(--red)">
+                    <i class="fa-brands fa-yelp contact-icon" onclick="goToLink('yelp')"></i>
+                    <span class="contact-icon-text">Yelp</span>
+                </div>
+                <div class="contact-btn-group" style="color: var(--brown)">
+                    <i class="fa-brands fa-instagram contact-icon" onclick="goToLink('instagram')"></i>
+                    <span class="contact-icon-text" >Instagram</span>
+                </div>
                 <div class="contact-btn-group" style="color: var(--darkBlue)">
                     <i class="fa-regular fa-file contact-icon"></i>
                     <span class="contact-icon-text">Menu</span>
-                </div>
-                <div class="contact-btn-group">
-                    <i class="fa-sharp fa-regular fa-compass contact-icon"></i>
-                    <span class="contact-icon-text">Directions</span>
-                </div>
-                <div class="contact-btn-group" style="color: var(--brown)">
-                    <i class="fa-brands fa-instagram contact-icon"></i>
-                    <span class="contact-icon-text" >Instagram</span>
-                </div>
-                <div class="contact-btn-group" style="color: var(--red)">
-                    <i class="fa-brands fa-yelp contact-icon"></i>
-                    <span class="contact-icon-text">Yelp</span>
-                </div>
-                
+                </div>           
             </div>
         </div>
     </section>
 
     <!-- FOOTER SECTION -->
-    <section id="footer-section">
+    <section id="footer-section" data-scroll-section>
         <div class="footer-column">
            <span class="footer-title">De Koffie Schenkerij</span>
            <span class="footer-text">Oudekerksplein 27,</span>
@@ -484,6 +496,9 @@
             <span class="footer-text" th:text="'last updated: '+${#dates.format(content.updatedAt, 'M/dd/yyyy')}"></span>
         </div>
     </section>
+    
+    <!-- HIDDEN -->
+    <a id="link-tag" style="display:none" hidden="hidden" href="#"></a>
 </div>
 <!-- Javascript -->
     <!-- Bootstrap -->
@@ -491,6 +506,7 @@
     <!-- JQuery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js" integrity="sha512-57oZ/vW8ANMjR/KQ6Be9v/+/h6bq9/l3f0Oc7vn6qMqyhvPd1cvKBRWWpzu0QoneImqr2SkmO4MSqU+RpHom3Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="/js/locomotive-scroll.min.js"></script>
     <script src="/js/app.js" async="true"></script>
 </body>
 </html>
