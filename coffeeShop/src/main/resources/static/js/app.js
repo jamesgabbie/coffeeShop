@@ -17,8 +17,8 @@ const scroll = new LocomotiveScroll({
 	        smooth: true
 	    },
 	firefoxMultiplier: .5,
-	reloadOnContextChange : true
-	
+	reloadOnContextChange : true,
+	breakpoint: 500
 });
 
 
@@ -122,6 +122,17 @@ function goToLink(linkType){
 		} else if(linkType == "instagram"){
 			linkTag.attr("href", instaUrl);
 			linkTag[0].click();
+		}
+	}
+}
+
+
+//Download Content
+
+function askToDownload(type){
+	if(type != null){
+		if(type == 'menu'){
+			
 		}
 	}
 }

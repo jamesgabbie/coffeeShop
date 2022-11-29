@@ -21,7 +21,7 @@
 	}
 	
 	#navBar-langBox{
-	    right: 30%;
+	    right: 20%;
 	    padding: 0px .5em;
 	}
 	
@@ -33,9 +33,12 @@
 	.offcanvas{
 	    min-width: 30vw;
 	    max-width: 65vw;
-	    min-height: 100vh;
 	    max-height: 100vh;
 	    background-color: var(--white);
+	}
+	.offcanvas-body{
+		justify-content: space-between;
+		padding: 0px .75em;
 	}
 	
 	.canvas-nav-link{
@@ -43,12 +46,19 @@
 		margin-left: 0;
 	}
 	
-	.canvas-menu-container{
+	.canvas-menu-container, .canvas-btn-container{
+		margin-top: 0;
 		padding: .25em;
 	}
 	
 	.offcanvas .contact-btn-group{
 		margin:3px;
+	}
+	
+	.canvas-info-container{
+		font-size: 12px;
+		padding: 1em;
+		margin-top: .5em;
 	}
 	
 	/* WELCOME MOBILE STYLES */
@@ -84,8 +94,21 @@
 		min-width: 100%;
 	}
 	/* MENU MOBILE STYLES */
+	.menu-section{
+		padding: 1em;
+	}
+	
 	.menu-title{
 	    font-size: 45px;
+	}
+	
+	.menu-image{
+		max-height: 100px;
+	}
+	
+	.menu-item{
+		max-width: 100%;
+		
 	}
 	
 	/* OWNER/ABOUT MOBILE STYLES */
@@ -151,6 +174,10 @@
 	}
 	
 	/* Footer Mobile Styles */
+	
+	#footer-section{
+		padding: .5em;
+	}
 	
 	.footer-text{
 	    font-size: 11px;

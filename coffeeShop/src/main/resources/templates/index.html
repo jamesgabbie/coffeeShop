@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- JQUERY UI CSS -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/themes/base/jquery-ui.min.css" integrity="sha512-ELV+xyi8IhEApPS/pSj66+Jiw+sOT1Mqkzlh8ExXihe4zfqbWkxPRi8wptXIO9g73FSlhmquFlUOuMSoXz5IRw==" crossorigin="anonymous" referrerpolicy="no-referrer" />        <!-- Local/External Styles -->
+	<!-- Local Styles -->
 	<link href="/css/master.css" type="text/css" rel="stylesheet">
     <link href="/css/sections.css" type="text/css" rel="stylesheet">
     <link href="/css/mobile.css" type="text/css" rel="stylesheet">
@@ -23,6 +24,7 @@
 <div id="loading-cover"></div>
 
 <!-- FIXED CONTENT -->
+	<!-- NavBar -->
 <div id="navBar">
     <div id="navBar-title">
         <svg id="navBar-logo" width="30px" height="30px" viewBox="0 0 105 127" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -37,9 +39,7 @@
     </div>
     <i class="fa-solid fa-list i-button" data-bs-toggle="offcanvas" data-bs-target="#canvas-navMenu" aria-controls="canvas-navMenu"></i>
 </div>
-
-
-<!-- OFF CANVAS MENU :: Bootstrap  :: Hidden until the menu button in the nav bar is clicked -->
+	<!-- OFF CANVAS MENU :: Bootstrap  :: Hidden until the menu button in the nav bar is clicked -->
 <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="canvas-navMenu" aria-labelledby="canvas-navMenuLabel">
     <div class="offcanvas-body">
         <div class="canvas-menu-container">
@@ -51,7 +51,7 @@
             <span class="canvas-nav-link" onclick="goToSection('about-section')">- about</span>
             <span class="canvas-nav-link" onclick="goToSection('contact-section')">- contact</span>
         </div>
-        <div class="canvas-menu-container" style="flex-direction: row; align-items:center; flex-wrap:wrap; align-content: center; justify-content: space-around; width: 100%; margin-top: 10%;">
+        <div class="canvas-btn-container">
         	 <div class="contact-btn-group">
                     <i class="fa-sharp fa-regular fa-compass contact-icon" onclick="goToLink('map')"></i>
                     <span class="contact-icon-text">Directions</span>
@@ -65,14 +65,42 @@
                  <span class="contact-icon-text" >Instagram</span>
              </div>
              <div class="contact-btn-group" style="color: var(--darkBlue)">
-                 <i class="fa-regular fa-file contact-icon"></i>
+                 <i class="fa-regular fa-file contact-icon" data-bs-toggle="modal" data-bs-target="#model-downloadConfirm"></i>
                  <span class="contact-icon-text">Menu</span>
              </div>  
         </div>
+        <div class="canvas-info-container">
+        	<span>De Koffie Schenkerij</span>
+           <span>Oudekerksplein 27,</span>
+            <span>1012 GX</span>
+            <span>Amsterdam, Netherlands</span>
+        </div>
+    </div>
+</div>
+
+<!-- Download Content Model :: Bootstrap :: Hidden until download request -->
+<div class="modal fade" id="model-downloadConfirm" tabindex="-1" aria-labelledby="model-downloadConfirm" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content" style="background-color: var(--white); border: 5px solid var(--darkBlue)">
+      <div class="modal-header" style="background-color: var(--creamOpac)">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" id="dl-modelBody">
+        <p style="font-family: var(--mono-font); font-size: 16px">download: <span style="margin-left: 5px;font-size: 20px; color: var(--darkBlue)">DKS_Menu.pdf</span></p>
+      </div>
+      <div class="modal-footer" style="background-color: var(--creamOpac)">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn" style="color:var(--darkBlue)">Download</button>
+      </div>
     </div>
   </div>
-
+</div>
 <!-- ####################################################### -->
+
+
+
+
+
 <!-- ####################################################### -->
 <!-- MASTER CONTENT CONTAINER -->
 <div id="mstr-view-container" data-scroll-container>
@@ -476,7 +504,7 @@
                     <span class="contact-icon-text" >Instagram</span>
                 </div>
                 <div class="contact-btn-group" style="color: var(--darkBlue)">
-                    <i class="fa-regular fa-file contact-icon"></i>
+                    <i class="fa-regular fa-file contact-icon" data-bs-toggle="modal" data-bs-target="#model-downloadConfirm"></i>
                     <span class="contact-icon-text">Menu</span>
                 </div>           
             </div>
@@ -492,8 +520,8 @@
             <span class="footer-text">Amsterdam, Netherlands</span>
         </div>
         <div class="footer-column">
-            <span class="footer-title" style="text-align: right;">site by | James Gabbie</span>
-            <span class="footer-text" th:text="'last updated: '+${#dates.format(content.updatedAt, 'M/dd/yyyy')}"></span>
+           	<span class="footer-text" th:text="'last updated: '+${#dates.format(content.updatedAt, 'M/dd/yyyy')}" style="text-align: right;"></span>
+            <span class="footer-text" style="text-align: right;">designed by: jamesgabbie.com</span>
         </div>
     </section>
     
